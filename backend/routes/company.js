@@ -3,6 +3,6 @@ const { registerCompany, authCompany } = require('../Controllers/companyControll
 
 
 router.route('/').post(registerCompany);
-//router.route('/login').post(authCompany);
+router.route('/login').post(authCompany);
 
 module.exports = router;

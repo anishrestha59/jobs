@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 let Company = require('../models/company.model');
+const generateToken = require('../utils/generateToken');
 
 const registerCompany = asyncHandler(async(req, res) => {
     const { companyname, contact, companyaddress, password} = req.body;
@@ -25,6 +26,7 @@ const registerCompany = asyncHandler(async(req, res) => {
                 contact:newCompany.contact,
                 companyaddress:newCompany.companyaddress,
                 password:newCompany.password,
+                token:generateToken(newCompany._id),
             });
         }else{
             res.status(400)
@@ -35,15 +37,16 @@ const registerCompany = asyncHandler(async(req, res) => {
 const authCompany = asyncHandler(async(req, res) => {
     const { contact, password} = req.body;
 
-    const company = await Company.findOne({ contact });
+    const foundCompany = await Company.findOne({ contact });
 
-    if(contact && (await contact.matchPassword(password))){
+    if(foundCompany && (await foundCompany.matchPassword(password))){
         res.json({
-            _id:newCompany._id,
-            companyname:newCompany.companyname,
-            contact:newCompany.contact,
-            companyaddress:newCompany.companyaddress,
-            password:newCompany.password,
+            _id:foundCompany._id,
+            companyname:foundCompany.companyname,
+            contact:foundCompany.contact,
+            companyaddress:foundCompany.companyaddress,
+            password:foundCompany.password,
+            token:generateToken(foundCompany._id),
         });
     }else{
         res.status(400);
