@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Header from "./Components/Header";
 import JobsList from "./Components/JobsList";
@@ -14,12 +14,15 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="container">
-       <Header /> 
-          <Route path = "/" exact component = {JobsList} />
-          <Route path = "/jobs/update" component = {EditJobs} />
-          <Route path = "/jobs/create" component = {CreateJobs} />
-          <Route path = "/users/add"  component = {CreateUsers} />
+    <div className="container">
+       <Header />
+       <Switch> 
+          <Route path = "/" exact component = { JobsList } />
+          <Route path = "/jobs/update" component = { EditJobs } />
+          <Route path = "/jobs/create" component = { CreateJobs } />
+          <Route path = "/users/add"  component = { CreateUsers } />
+        </Switch>
+
       </div>
     </Router>
   );

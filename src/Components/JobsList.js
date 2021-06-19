@@ -53,20 +53,20 @@ export default class JobsList extends Component {
     }
 
     jobsList(){
-        return this.state.jobs.map(currentJobs => {
+        return this.state.jobs.map( (currentJobs) => {
             return<Jobs jobs={currentJobs} deleteJobs={this.deleteJobs} key={currentJobs._id} />;
         })
         }
     render() {
         return (
             <div>
-                <h3>Logged Jobs</h3>
+                <h4>  Jobs:</h4>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Jobname: </th>
+                            <th>Jobname:</th>
                             <th>Description:</th>
-                            <th>Date:</th>
+                            <th>Deadline:</th>
                             <th>Actions:</th>
                         </tr>
                     </thead>

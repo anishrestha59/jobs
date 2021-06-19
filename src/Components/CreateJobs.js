@@ -52,6 +52,9 @@ export default class CreateJobs extends Component {
         console.log(registered);
         axios.post('http://localhost:5000/jobs/add', registered)
             .then(response => console.log(response.data))
+
+        
+        window.location ='/';
             
     }
 
@@ -83,7 +86,7 @@ export default class CreateJobs extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label>Date: </label>
+                                <label>Pick deadline: </label>
                                 <div>
                                     <DatePicker
                                         selected={this.state.date}
@@ -92,7 +95,7 @@ export default class CreateJobs extends Component {
                                 </div>
                             </div>
 
-                            <input type='submit' className='btn btn-danger btn-block' value='Submit'/>
+                            <input type='submit' className='btn btn-danger btn-block' value='Create Job'/>
                         </form>
                     </div>
                 </div>

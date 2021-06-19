@@ -6,13 +6,13 @@ export default class Header extends Component {
         return (
             <div className="Container">
                 <Navbar bg="light" expand="lg">
-                    <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand href="/">Job Sanjal</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/users/add">Recommended</Nav.Link>
                             <Nav.Link href="/jobs/create">Create Jobs </Nav.Link>
-                            <Nav.Link href="/users/add">create users</Nav.Link>
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -25,6 +25,7 @@ export default class Header extends Component {
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                             <Button variant="outline-success">Search</Button>
                         </Form>
+                            
                     </Navbar.Collapse>
                 </Navbar>
 
