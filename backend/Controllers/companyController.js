@@ -26,7 +26,6 @@ const registerCompany = asyncHandler(async(req, res) => {
                 contact:newCompany.contact,
                 companyaddress:newCompany.companyaddress,
                 password:newCompany.password,
-                token:generateToken(newCompany._id),
             });
         }else{
             res.status(400)
@@ -35,7 +34,7 @@ const registerCompany = asyncHandler(async(req, res) => {
 });
 
 const authCompany = asyncHandler(async(req, res) => {
-    const { contact, password} = req.body;
+    const { contact, password } = req.body;
 
     const foundCompany = await Company.findOne({ contact });
 
