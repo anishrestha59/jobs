@@ -26,12 +26,12 @@ app.use(errorHandler);
 const jobsRouter = require('./routes/jobs');
 //const usersRouter = require('./routes/users');
 const companyRouter = require('./routes/company');
-//const seekerRouter = require('./routes/seekerRoutes');
+const seekerRouter = require('./routes/seekerRoutes');
 
 app.use('/jobs', jobsRouter);
 //app.use('/users', usersRouter);
 app.use('/company',companyRouter);
-//app.use('/seeker',seekerRouter);
+app.use('/seeker',seekerRouter);
 
  
 

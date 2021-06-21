@@ -26,6 +26,7 @@ const registerCompany = asyncHandler(async(req, res) => {
                 contact:newCompany.contact,
                 companyaddress:newCompany.companyaddress,
                 password:newCompany.password,
+               
             });
         }else{
             res.status(400)

@@ -14,13 +14,7 @@ const LoginScreen = () => {
     const [loading, setLoading] = useState(false)
 
 
-    // useEffect(() => {
-    //     const companyInfo = localStorage.getItem("companyInfo");
-
-    //     if(companyInfo){
-    //         history.pushState("/")
-    //     }
-    // }, [history]);
+    
 
     const submitHandler = async (event) =>{
         
@@ -45,7 +39,8 @@ const LoginScreen = () => {
 
             setLoading(false);
             console.log(data);
-            localStorage.setItem("companyInfo", JSON.stringify(data));
+            localStorage.setItem("UserData", JSON.stringify(data));
+            window.location="/";
 
         } catch (error) {
             setError(error.response.data.message);

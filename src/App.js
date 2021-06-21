@@ -1,6 +1,8 @@
-import React from 'react';
+
+import React, { Component,useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+//import jwtDecode from 'jwt-decode';
 
 import Header from "./Components/Header";
 import JobsList from "./Components/JobsList";
@@ -9,27 +11,46 @@ import EditJobs from "./Components/EditJobs";
 import CreateUsers from "./Components/CreateUsers";
 import SignupCompany from './SignupScreen/SignupScreen';
 import LoginCompany from "./LoginScreen/LoginScreen";
+import LoginSeeker from "./LoginScreen/seekerLoginScreen";
+import SignupSeeker from "./SignupScreen/SeekerSignupScreen";
 
 import './App.css';
 
-function App() {
-  return (
-    <Router>
-    <div className="container">
-       <Header />
-       <Switch> 
-          <Route path = "/" exact component = { JobsList } />
-          <Route path = "/jobs/update" component = { EditJobs } />
-          <Route path = "/jobs/create" component = { CreateJobs } />
-          <Route path = "/users/add"  component = { CreateUsers } />
-          <Route path = "/company" exact component = { SignupCompany } />
-          <Route path = "/company/login" component = { LoginCompany } />
-          
-        </Switch>
 
-      </div>
-    </Router>
-  );
+export default class App extends Component {
+
+  state={};
+
+  componentDidMount() {
+  
+    let userData = (localStorage.getItem('UserData'));
+    let parsedData = JSON.parse(userData);//converting string json to object
+    console.log(parsedData)
+    this.setState({ parsedData });
+  }
+    
+    render() {
+      return (
+      <Router>
+      <div className="container">
+         <Header user={this.state.parsedData}/>
+         <Switch> 
+           
+            <Route path = "/" exact component = { JobsList } />
+            <Route path = "/jobs/update" component = { EditJobs } />
+            <Route path = "/jobs/create" component = { CreateJobs } />
+            <Route path = "/users/add"  component = { CreateUsers } />
+            <Route path = "/company" exact component = { SignupCompany } />
+            <Route path = "/company/login" component = { LoginCompany } />
+            {/* <Route path = "/seeker/login" component = { LoginSeeker } /> */}
+            <Route path = "/seeker/" component = { SignupCompany } />
+
+
+            
+          </Switch>
+  
+        </div>
+      </Router>
+    );
+  }
 }
-
-export default App;

@@ -10,17 +10,16 @@ const seekerSchema = new Schema({
         trim: true
     },
     gender:{
-        type:string,
-        string
+        type: String,
+        required: true,
     },
     seekeraddress:{
         type: String,
-        required: true
+        required: true,
     },
     age:{
         type: Number,
         required: true,
-        trim :true,
     },
     contact:{
         type: Number,
@@ -46,6 +45,21 @@ const seekerSchema = new Schema({
 }, {
     timestamps: true,
 });
+
+//Hashing password
+seekerSchema.pre('save', async function (next){
+    if(!this.isModified('password')) {
+        next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
+//dehashing password
+seekerSchema.methods.matchPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const Seeker = mongoose.model('seeker', seekerSchema);
 

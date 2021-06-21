@@ -7,11 +7,16 @@ import Loading from '../Components/Loading';
 import ErrorMessage from '../Components/ErrorMessage';
 
 
-const SignupScreen = () => {
+const SeekerSignupScreen = () => {
 
-    const [companyname, setCompanyName] = useState("");
+    const [seekername, setSeekerName] = useState("");
+    const [gender, setGender] = useState("");
+    const [seekeraddress, setAddress] = useState("");
+    const [age, setAge] = useState("");
     const [contact, setContact] = useState("");
-    const [companyaddress, setAddress] = useState("");
+    const [skills, setSkills] = useState("");
+    const [salary, setSalary] = useState("");
+    const [experience, setExperience] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorPassword, setErrorMessage] = useState(null);
@@ -34,11 +39,16 @@ const SignupScreen = () => {
                 }
                 setLoading(true)
 
-                const { data } = await axios.post("http://localhost:5000/company/",
+                const { data } = await axios.post("http://localhost:5000/seeker/",
                     {
-                        companyname,
-                        contact,
-                        companyaddress,
+                        seekername, 
+                        gender, 
+                        seekeraddress, 
+                        age, 
+                        contact, 
+                        skills, 
+                        salary, 
+                        experience, 
                         password,
                     },
                     config,
@@ -47,7 +57,6 @@ const SignupScreen = () => {
                 setLoading(false);
                 console.log(data);
                 localStorage.setItem("UserData", JSON.stringify(data));
-                window.location = "/";
 
           } catch (error) {
                 setErrorBack(error.response.data.message);
@@ -76,12 +85,33 @@ const SignupScreen = () => {
                 {loading && <Loading />}
                 <Form onSubmit= { submitHandler }>
                     <Form.Group className="mb-3" controlId="formBasicPhone">
-                    <Form.Label>Company Name</Form.Label>
+                    <Form.Label>Full Name</Form.Label>
                         <Form.Control
                             type="text"
-                            value={companyname}
-                            placeholder="Enter Company Name"
-                        onChange={(event) => setCompanyName(event.target.value)}
+                            value={seekername}
+                            placeholder="Enter Your Name"
+                        onChange={(event) => setSeekerName(event.target.value)}
+                        />
+                          <Form.Label>Gender</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={gender}
+                            placeholder="Enter Your gender"
+                        onChange={(event) => setGender(event.target.value)}
+                        />
+                          <Form.Label>Full Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={seekeraddress}
+                            placeholder="Enter Your Address"
+                        onChange={(event) => setAddress(event.target.value)}
+                        />
+                           <Form.Label>Age</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={age}
+                            placeholder="Enter age"
+                        onChange={(event) => setAge(event.target.value)}
                         />
                         <Form.Label>Phone</Form.Label>
                         <Form.Control
@@ -90,15 +120,30 @@ const SignupScreen = () => {
                             placeholder="Enter Phone"
                         onChange={(event) => setContact(event.target.value)}
                         />
-                        <Form.Text className="text-muted">
+                           <Form.Text className="text-muted">
                             We'll never share your phone with anyone else.
                         </Form.Text>
-                        <Form.Label>Address</Form.Label>
+                     <Form.Label>Skills</Form.Label>
+                              <Form.Control
+                            type="text"
+                            value={skills}
+                            placeholder="Enter Your skills"
+                        onChange={(event) => setSkills(event.target.value)}
+                        />
+                           <Form.Label>Current Salary</Form.Label>
+                        <Form.Control
+                            type="number"
+                            value={salary}
+                            placeholder="Enter Salary"
+                        onChange={(event) => setSalary(event.target.value)}
+                        />
+
+                        <Form.Label>Experience</Form.Label>
                         <Form.Control
                             type="text"
-                            value={companyaddress}
-                            placeholder="Enter Address"
-                        onChange={(event) => setAddress(event.target.value)}
+                            value={experience}
+                            placeholder="Enter Experience"
+                        onChange={(event) => setExperience(event.target.value)}
                         />
                     </Form.Group>
 
@@ -127,4 +172,4 @@ const SignupScreen = () => {
     );
 }
 
-export default SignupScreen;
+export default SeekerSignupScreen;
