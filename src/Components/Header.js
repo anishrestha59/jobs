@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, NavLink} from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
-import checkUser from './checkUser'
+import userType from './checkUser'
 
 export default function Header( {user} ) {
     const history = useHistory();
-
-
 
 
     return (
@@ -35,13 +33,28 @@ export default function Header( {user} ) {
                                 <NavDropdown.Item href="/company">Company Signup</NavDropdown.Item>
                                 <NavDropdown.Item href="/seeker">Seeker Signup</NavDropdown.Item>
 
-                            </NavDropdown>
+                            </NavDropdown> 
                         </React.Fragment>
                         }
-                        {user &&
+                        {user && user["companyname"] &&
                             <React.Fragment>
 
-                                <NavDropdown title="Profile" id="basic-nav-dropdown">
+                                <NavDropdown title={user["companyname"]} id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item
+                                        onClick={() => {
+                                            localStorage.removeItem("UserData");
+                                            window.location = "/";
+
+                                        }}>Logout</NavDropdown.Item>
+                                </NavDropdown>
+                            </React.Fragment>
+                        }
+                           {user && user["seekername"] &&
+                            <React.Fragment>
+
+                                <NavDropdown title={user["seekername"]} id="basic-nav-dropdown">
                                     <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item

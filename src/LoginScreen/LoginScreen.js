@@ -38,7 +38,7 @@ const LoginScreen = () => {
             );
 
             setLoading(false);
-            console.log(data);
+           
             localStorage.setItem("UserData", JSON.stringify(data));
             window.location="/";
 

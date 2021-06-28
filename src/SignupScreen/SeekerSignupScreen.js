@@ -55,8 +55,9 @@ const SeekerSignupScreen = () => {
                 );
 
                 setLoading(false);
-                console.log(data);
+               
                 localStorage.setItem("UserData", JSON.stringify(data));
+                window.location="/";
 
           } catch (error) {
                 setErrorBack(error.response.data.message);

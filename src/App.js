@@ -25,7 +25,7 @@ export default class App extends Component {
   
     let userData = (localStorage.getItem('UserData'));
     let parsedData = JSON.parse(userData);//converting string json to object
-    console.log(parsedData)
+    
     this.setState({ parsedData });
   }
     
@@ -42,8 +42,8 @@ export default class App extends Component {
             <Route path = "/users/add"  component = { CreateUsers } />
             <Route path = "/company" exact component = { SignupCompany } />
             <Route path = "/company/login" component = { LoginCompany } />
-            {/* <Route path = "/seeker/login" component = { LoginSeeker } /> */}
-            <Route path = "/seeker/" component = { SignupCompany } />
+            <Route path = "/seeker/login" component = { LoginSeeker } />
+            <Route path = "/seeker/" component = { SignupSeeker } />
 
 
             

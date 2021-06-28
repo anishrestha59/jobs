@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const asyncHandler = require('express-async-handler');
 let Seeker = require('../models/seeker.model');
 
 router.route('/').get((req, res) => {
