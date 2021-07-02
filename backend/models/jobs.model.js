@@ -7,6 +7,22 @@ const jobSchema = new Schema({
         type: String,
         required: true,
     },
+    jobtype: {
+        type: String,
+        required: true,
+    },
+    jobshift: {
+        type: String,
+        required: true,
+    },
+    salary: {
+        type: Number,
+        required: true,
+    },
+    experience: {
+        type: Number,
+        required: true,
+    },
     description: {
         type: String,
         required: true

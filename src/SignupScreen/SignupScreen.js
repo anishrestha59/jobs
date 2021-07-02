@@ -143,8 +143,6 @@ const SignupScreen = () => {
                             onChange={ checkPassword }
                             onInput={(event) => setConfirmPassword(event.target.value)}
 
-                           
-                            
                         />
 
                         { passwordMatchError &&

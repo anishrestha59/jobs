@@ -31,6 +31,7 @@ export default function Header( {user} ) {
                             </NavDropdown>
                         </React.Fragment>
                         }
+                        
                         {!user && <React.Fragment>
 
                             <NavDropdown title="Signup" id="basic-nav-dropdown">
