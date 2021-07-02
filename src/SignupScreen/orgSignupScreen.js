@@ -14,33 +14,10 @@ const SignupScreen = () => {
     const [companyaddress, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [passwordMatchError, setPasswordMatchError] = useState(false);
     const [errorPassword, setErrorMessage] = useState(null);
     const [errorBack, setErrorBack] = useState(false);
     const [loading, setLoading] = useState(false);
-
     //const [picMessage, setPicMessage] = useState(null);
-
-
-    function checkPassword(event){
-
-        if(password === event.target.value){
-            setPasswordMatchError(false);
-        }
-        else{
-            setPasswordMatchError(true);
-        }
-    }
-
-    // const passwordCheck = () =>{
-        
-    //     if(password !== confirmPassword){
-    //         setPasswordMatchError(true);
-    //     }
-    //     else{
-    //         setPasswordMatchError(false);
-    //     }
-    // }
 
     const submitHandler = async(event) => {
         event.preventDefault();
@@ -79,7 +56,6 @@ const SignupScreen = () => {
         }
 
 }
-
 
 // const postDetails= ( pics ) => {
     
@@ -133,28 +109,14 @@ const SignupScreen = () => {
                             value={password}
                             placeholder="Password"
                             onChange={(event) => setPassword(event.target.value)}
-                            onInput={ checkPassword }
                         />
                           <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
                             type="password"
-                            value={ confirmPassword }
+                            value={confirmPassword}
                             placeholder="Confirm Password"
-                            onChange={ checkPassword }
-                            onInput={(event) => setConfirmPassword(event.target.value)}
-
-                           
-                            
+                            onChange={(event) => setConfirmPassword(event.target.value)}
                         />
-
-                        { passwordMatchError &&
-                            <React.Fragment>
-                           <Form.Text className="text-muted">
-                            Password doesn't match!!
-                        </Form.Text>
-                        </React.Fragment>
-                        }
-
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit

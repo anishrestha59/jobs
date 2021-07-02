@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, NavLink} from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 import userType from './checkUser'
 
 export default function Header( {user} ) {
@@ -14,15 +14,19 @@ export default function Header( {user} ) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/users/add">Recommended</Nav.Link>
-                        <Nav.Link href="/jobs/create">Create Jobs </Nav.Link>
+                        <NavLink className="nav-link" to="/">Home</NavLink>
+                        <NavLink className="nav-link" to="/users/add">Recommended</NavLink>
+                        <NavLink className="nav-link" to="/jobs/create">Create Jobs </NavLink>
 
                         {!user && <React.Fragment>
 
                             <NavDropdown title="Login" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/company/login">Company Login</NavDropdown.Item>
-                                <NavDropdown.Item href="/seeker/login">Seeker Login</NavDropdown.Item>
+                                <NavDropdown.Item className="small">
+                                    <Link className="nav-link" to="/company/login">Company Login</Link>
+                                    </NavDropdown.Item>
+                                <NavDropdown.Item> 
+                                    <Link className="nav-link" to="/seeker/login">Seeker Login</Link>
+                                </NavDropdown.Item>
 
                             </NavDropdown>
                         </React.Fragment>
