@@ -55,4 +55,6 @@ const authCompany = asyncHandler(async(req, res) => {
 
 });
 
+
+
 module.exports =  { registerCompany, authCompany } ;

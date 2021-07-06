@@ -7,6 +7,7 @@ export default class CreateJobs extends Component {
     constructor(){
         super()
         this.state = {
+            companyid:'',
             jobname: '',
             jobtype: '',
             jobshift: 'day',
@@ -20,6 +21,19 @@ export default class CreateJobs extends Component {
         this.changeDescription = this.changeDescription.bind(this)
         this.changeDate = this.changeDate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+    }
+    componentDidMount() {
+  
+      let userData = (localStorage.getItem('UserData'));
+      let parsedData = JSON.parse(userData);//converting string json to object
+
+    if(parsedData.hasOwnProperty("companyname")){
+      this.setState({
+        companyid: parsedData._id
+      });
+
+    }
+
     }
 
     changeJobname(event){
@@ -65,6 +79,7 @@ export default class CreateJobs extends Component {
         event.preventDefault();
 
         const registered = {
+            companyid: this.state.companyid,
             jobname: this.state.jobname,
             jobtype: this.state.jobtype,
             jobshift: this.state.jobshift,

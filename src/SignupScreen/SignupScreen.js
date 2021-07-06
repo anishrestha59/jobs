@@ -73,7 +73,7 @@ const SignupScreen = () => {
                 window.location = "/";
 
           } catch (error) {
-                setErrorBack(error.response.data.message);
+                setErrorBack('phone already exist');
                 setLoading(false);
             }
         }
@@ -96,7 +96,7 @@ const SignupScreen = () => {
         <div>
             <div className="container" >
                 {errorPassword && <ErrorMessage variant="danger">{errorPassword}</ErrorMessage>}
-                {errorBack && <ErrorMessage variant="danger">{errorBack}</ErrorMessage>}
+                
                 {loading && <Loading />}
                 <Form onSubmit= { submitHandler }>
                     <Form.Group className="mb-3" controlId="formBasicPhone">
@@ -117,6 +117,7 @@ const SignupScreen = () => {
                         <Form.Text className="text-muted">
                             We'll never share your phone with anyone else.
                         </Form.Text>
+                        {errorBack && <ErrorMessage variant="danger">{errorBack}</ErrorMessage>}
                         <Form.Label>Address</Form.Label>
                         <Form.Control
                             type="text"

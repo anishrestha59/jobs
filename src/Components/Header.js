@@ -45,7 +45,7 @@ export default function Header( {user} ) {
                             <React.Fragment>
 
                                 <NavDropdown title={user["companyname"]} id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+                                    <NavDropdown.Item href="/userprofile">My Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item
                                         onClick={() => {

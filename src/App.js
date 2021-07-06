@@ -13,8 +13,10 @@ import SignupCompany from './SignupScreen/SignupScreen';
 import LoginCompany from "./LoginScreen/LoginScreen";
 import LoginSeeker from "./LoginScreen/seekerLoginScreen";
 import SignupSeeker from "./SignupScreen/SeekerSignupScreen";
+import UserProfile from "./Components/UserProfile";
 
 import './App.css';
+
 
 
 export default class App extends Component {
@@ -38,12 +40,13 @@ export default class App extends Component {
            
             <Route path = "/" exact component = { JobsList } />
             <Route path = "/jobs/update" component = { EditJobs } />
-            <Route path = "/jobs/create" component = { CreateJobs } />
+            <Route path = "/jobs/create" component = { CreateJobs }/>
             <Route path = "/users/add"  component = { CreateUsers } />
             <Route path = "/company" exact component = { SignupCompany } />
             <Route path = "/company/login" component = { LoginCompany } />
             <Route path = "/seeker/login" component = { LoginSeeker } />
             <Route path = "/seeker/" component = { SignupSeeker } />
+            <Route path = "/userprofile" component = { UserProfile } />
 
 
             
