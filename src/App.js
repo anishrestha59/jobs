@@ -14,6 +14,7 @@ import LoginCompany from "./LoginScreen/LoginScreen";
 import LoginSeeker from "./LoginScreen/seekerLoginScreen";
 import SignupSeeker from "./SignupScreen/SeekerSignupScreen";
 import UserProfile from "./Components/UserProfile";
+import MyJobs from './Components/MyJobs';
 
 import './App.css';
 
@@ -46,7 +47,8 @@ export default class App extends Component {
             <Route path = "/company/login" component = { LoginCompany } />
             <Route path = "/seeker/login" component = { LoginSeeker } />
             <Route path = "/seeker/" component = { SignupSeeker } />
-            <Route path = "/userprofile" component = { UserProfile } />
+            <Route path = "/userprofile/" component = { UserProfile } />
+            <Route path = "/company/myjobs/" component = { MyJobs } />
 
 
             

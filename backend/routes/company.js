@@ -14,7 +14,7 @@ router.route('/update/:id').post((req, res) => {
             company.password = req.body.password;
 
             company.save()
-                .then(() => res.json('Company updated'))
+                .then(() => res.json(company))
                 .catch(err => res.status(400).json('Error' + err));
         })
         .catch(err => res.status(400).json('Error' + err));

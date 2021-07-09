@@ -25,8 +25,7 @@ export default class UserProfile extends Component {
         userid: parsedData._id,
         companyname: parsedData.companyname,
         contact: parsedData.contact,
-        companyaddress: parsedData.companyaddress,
-        password: parsedData.password,
+        companyaddress: parsedData.companyaddress
       });
     }
   }
@@ -52,6 +51,8 @@ export default class UserProfile extends Component {
   submitHandler = async(event) => {
     var contact = this.state.contact;
     var password = this.state.password;
+    let loginFlag = false;
+    let updatedData;
    
 
     event.preventDefault();
@@ -61,28 +62,40 @@ export default class UserProfile extends Component {
           "Content-type": "application/json",
         },
       }
-     
-        const data = await axios.post("http://localhost:5000/company/login",
-          {
-            contact,
-            password,
-          },
-          config
-        );
 
-      } catch (error) {
+      const data = await axios.post("http://localhost:5000/company/login",
+        {
+          contact,
+          password,
+        },
+        config
+      );
+        loginFlag = true;
+    
+    } catch (error) {
         console.log(error);
+        loginFlag = false;
       }
 
+    if(loginFlag){
       const updateData = {
         companyname: this.state.companyname,
         contact,
         companyaddress: this.state.companyaddress,
         password
       }
-      axios.post("http://localhost:5000/company/update/"+this.state.userid, updateData)
-        .then(res => console.log(res.data))
+
+      await axios.post(`http://localhost:5000/company/update/${this.state.userid}`, updateData)
+        .then((res) => {
+          updatedData = res.data;
+        })
+        console.log(updatedData);
     
+    
+        // localStorage.setItem("UserData", JSON.stringify(updatedData));
+        
+
+      }
 
   }
 

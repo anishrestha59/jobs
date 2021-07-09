@@ -7,7 +7,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error' + err));
 });
 
+router.route('/myjobs/:id').get((req, res) => {
+    Job.find({companyid: req.params.id},(err,jobs) => {
+        res.json(jobs);
+    });
+});
+
 router.route('/add').post((req, res) => {
+    const companyid = req.body.companyid;
     const jobname = req.body.jobname;
     const jobtype = req.body.jobtype;
     const jobshift = req.body.jobshift;
@@ -17,6 +24,7 @@ router.route('/add').post((req, res) => {
     const date = Date.parse(req.body.date);
 
     const newJobs = new Job({
+        companyid,
         jobname,
         jobtype,
         jobshift,

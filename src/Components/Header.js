@@ -16,7 +16,6 @@ export default function Header( {user} ) {
                     <Nav className="mr-auto">
                         <NavLink className="nav-link" to="/">Home</NavLink>
                         <NavLink className="nav-link" to="/users/add">Recommended</NavLink>
-                        <NavLink className="nav-link" to="/jobs/create">Create Jobs </NavLink>
 
                         {!user && <React.Fragment>
 
@@ -42,8 +41,10 @@ export default function Header( {user} ) {
                         </React.Fragment>
                         }
                         {user && user["companyname"] &&
+                            
                             <React.Fragment>
 
+                                <NavLink className="nav-link" to="/jobs/create">Create Jobs </NavLink>
                                 <NavDropdown title={user["companyname"]} id="basic-nav-dropdown">
                                     <NavDropdown.Item href="/userprofile">My Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
@@ -54,6 +55,7 @@ export default function Header( {user} ) {
 
                                         }}>Logout</NavDropdown.Item>
                                 </NavDropdown>
+                                <NavLink className="nav-link" to="/company/myjobs">My jobs</NavLink>
                             </React.Fragment>
                         }
                            {user && user["seekername"] &&
