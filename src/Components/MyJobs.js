@@ -27,9 +27,7 @@ export default class MyJobs extends Component {
 
         this.state = {
             jobs: []
-        };
-        
-        
+        }; 
         
     }
     componentDidMount(){

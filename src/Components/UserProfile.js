@@ -92,7 +92,7 @@ export default class UserProfile extends Component {
         console.log(updatedData);
     
     
-        // localStorage.setItem("UserData", JSON.stringify(updatedData));
+        localStorage.setItem("UserData", JSON.stringify(updatedData));
         
 
       }
