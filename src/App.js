@@ -3,6 +3,8 @@ import React, { Component,useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 //import jwtDecode from 'jwt-decode';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from "./Components/Header";
 import JobsList from "./Components/JobsList";
@@ -15,6 +17,8 @@ import LoginSeeker from "./LoginScreen/seekerLoginScreen";
 import SignupSeeker from "./SignupScreen/SeekerSignupScreen";
 import UserProfile from "./Components/UserProfile";
 import MyJobs from './Components/MyJobs';
+import ShowJob from './Components/ShowJob';
+import AppliedJobs from './Components/AppliedJobs';
 
 import './App.css';
 
@@ -34,9 +38,11 @@ export default class App extends Component {
     
     render() {
       return (
+      <React.Fragment>
       <Router>
       <div className="container">
          <Header user={this.state.parsedData}/>
+        <ToastContainer/>
          <Switch> 
            
             <Route path = "/" exact component = { JobsList } />
@@ -48,14 +54,16 @@ export default class App extends Component {
             <Route path = "/seeker/login" component = { LoginSeeker } />
             <Route path = "/seeker/" component = { SignupSeeker } />
             <Route path = "/userprofile/" component = { UserProfile } />
-            <Route path = "/company/myjobs/" component = { MyJobs } />
-
-
+            <Route path = "/company/myjobs/" exact component = { MyJobs } />
+            <Route path = "/job/:id" component = { ShowJob } />
+            <Route path = "/jobs/appliedjobs" component = { AppliedJobs }/>
+            
             
           </Switch>
   
         </div>
       </Router>
+      </React.Fragment>
     );
   }
 }

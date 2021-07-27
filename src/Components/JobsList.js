@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 
-const Jobs= props =>{
+
+const Jobs= (props) =>{
+    let user = props.userData;
     return (
         <tr>
             <td>{props.jobs.jobname}</td>
             <td>{props.jobs.description}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
             <td>
-                <Link to={"/update" + props.jobs._id}> Edit </Link>
-                /
-                <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> Delete </a>
+                { !user &&
+                <>
+                
+                 <button type="button" class="btn btn-primary" >Apply</button>
+                 
+                    {/* <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> ApplyTo login </a> */}
+    </>
+                }
+                 { user && user["seekername"] && 
+               <React.Fragment>
+                   <NavLink className="NavLink" to={`job/${props.jobs._id}`}> Apply </NavLink>
+
+               
+                    {/* <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> ApplySeeker </a> */}
+                </React.Fragment>
+                }
+
             </td>
         </tr>
 
@@ -26,7 +43,9 @@ export default class JobsList extends Component {
         this.deleteJobs = this.deleteJobs.bind(this);
 
         this.state = {
-            jobs: []
+            jobs: [],
+            userData: {},
+            selectedJob:""
         };
         
         
@@ -40,8 +59,23 @@ export default class JobsList extends Component {
             .catch((err) =>{
                 console.log(err);
             });
+
+        let userData = (localStorage.getItem('UserData'));
+        let parsedData = JSON.parse(userData);//converting string json to object
+
+            this.setState({
+                userData: parsedData
+            });
+
+
     }
     
+    handleApply = (jobsId) => {
+        this.setState({
+            selectedJob: jobsId
+        })
+        return "apply";
+    }
 
     deleteJobs(id){
         axios.delete('http://localhost:5000/jobs/'+id)
@@ -54,7 +88,7 @@ export default class JobsList extends Component {
 
     jobsList(){
         return this.state.jobs.map( (currentJobs) => {
-            return<Jobs jobs={currentJobs} deleteJobs={this.deleteJobs} key={currentJobs._id} />;
+            return<Jobs jobs={currentJobs} userData={this.state.userData} handleApply={this.handleApply} deleteJobs={this.deleteJobs} key={currentJobs._id} />;
         })
         }
     render() {

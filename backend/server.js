@@ -24,11 +24,13 @@ connection.once('open', () =>{
 app.use(errorHandler);
 
 const jobsRouter = require('./routes/jobs');
+const appliedJobsRouter = require('./routes/appliedjob');
 //const usersRouter = require('./routes/users');
 const companyRouter = require('./routes/company');
 const seekerRouter = require('./routes/seekerRoutes');
 
 app.use('/jobs', jobsRouter);
+app.use('/appliedjobs', appliedJobsRouter);
 //app.use('/users', usersRouter);
 app.use('/company',companyRouter);
 app.use('/seeker',seekerRouter);

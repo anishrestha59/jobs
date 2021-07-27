@@ -5,9 +5,10 @@ import { Form, Button} from 'react-bootstrap';
 import "./login.css";
 import Loading from '../Components/Loading';
 import ErrorMessage from '../Components/ErrorMessage';
+import PropTypes from 'prop-types';
 
+const LoginScreen = ( {jobid} ) => {
 
-const LoginScreen = () => {
     const [contact, setContact] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
@@ -15,7 +16,7 @@ const LoginScreen = () => {
 
 
     
-
+console.log(jobid);
     const submitHandler = async (event) =>{
         
         event.preventDefault();
@@ -28,7 +29,7 @@ const LoginScreen = () => {
             }
             setLoading(true)
 
-            const { data } = await axios.post("http://localhost:5000/company/login",
+            const { data } = await axios.post("http://localhost:5000/seeker/login",
                 {
                     contact,
                     password,
@@ -55,10 +56,10 @@ const LoginScreen = () => {
 
             <Form onSubmit= { submitHandler }>
                 <Form.Group className="mb-3" controlId="formBasicPhone">
-                    <Form.Label>Phone</Form.Label>
+                    <Form.Label>seeker Phone</Form.Label>
                     <Form.Control
                         type="number"
-                        value={contact}
+                        value={ contact }
                         placeholder="Enter Phone"
                         onChange={(event) => setContact(event.target.value)}
                     />
@@ -87,4 +88,9 @@ const LoginScreen = () => {
     )
 }
 
+
+ LoginScreen.propTypes = {
+    jobid: PropTypes.string
+ };
+ 
 export default LoginScreen;
