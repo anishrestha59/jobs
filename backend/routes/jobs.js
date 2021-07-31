@@ -8,7 +8,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/myjobs/:id').get((req, res) => {
-    Job.find({companyid: req.params.id},(err,jobs) => {
+    Job.find({companyid: req.params.id},(err,jobs=[]) => {
         res.json(jobs);
     });
 });

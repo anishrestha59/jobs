@@ -3,8 +3,10 @@ let Seeker = require('../models/seeker.model');
 const generateToken = require('../utils/generateToken');
 
 const registerSeeker = asyncHandler(async(req, res) => {
+    //const { profile } = (req.file) ? req.file.filename : null;
     const {seekername, gender, seekeraddress, age, contact, skills, salary, experience, password } = req.body;
-
+    const profile = req.file.filename;
+    
     const seekerExists = await Seeker.findOne({ contact });
 
     if (seekerExists){
@@ -13,6 +15,7 @@ const registerSeeker = asyncHandler(async(req, res) => {
     }
 
         const newSeeker = await Seeker.create({
+            profile,
             seekername, 
             gender, 
             seekeraddress, 
@@ -27,6 +30,7 @@ const registerSeeker = asyncHandler(async(req, res) => {
         if(newSeeker){
             res.status(201).json({
                 _id:newSeeker._id,
+                profile:newSeeker.profile,
                 seekername:newSeeker.seekername,
                 gender:newSeeker.gender,
                 seekeraddress:newSeeker.seekeraddress,

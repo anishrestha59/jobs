@@ -148,7 +148,7 @@ const SignupScreen = () => {
 
                         { passwordMatchError &&
                             <React.Fragment>
-                           <Form.Text className="text-muted">
+                           <Form.Text style= {{ textColor: "red"}} className="text-muted ">
                             Password doesn't match!!
                         </Form.Text>
                         </React.Fragment>

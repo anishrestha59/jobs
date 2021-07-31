@@ -6,8 +6,7 @@ const appliedJobSchema = new Schema({
     jobid: {
         type: String,
         required: true,
-       
-    },
+        },
     seekerid: {
         type: String,
         required: true,

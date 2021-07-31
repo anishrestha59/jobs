@@ -19,6 +19,7 @@ import UserProfile from "./Components/UserProfile";
 import MyJobs from './Components/MyJobs';
 import ShowJob from './Components/ShowJob';
 import AppliedJobs from './Components/AppliedJobs';
+import AppliedSeekers from './Components/AppliedSeekers';
 
 import './App.css';
 
@@ -57,6 +58,8 @@ export default class App extends Component {
             <Route path = "/company/myjobs/" exact component = { MyJobs } />
             <Route path = "/job/:id" component = { ShowJob } />
             <Route path = "/jobs/appliedjobs" component = { AppliedJobs }/>
+            <Route path = "/jobs/appliedseekers/:id" component = { AppliedSeekers }/>
+
             
             
           </Switch>

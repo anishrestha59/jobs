@@ -9,7 +9,9 @@ const Jobs= props =>{
             <td>{props.jobs.description}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
             <td>
-                <Link to={"/update" + props.jobs._id}> Edit </Link>
+                {/* <Link to={"/update" + props.jobs._id}> Edit </Link> */}
+                <Link to={ "/jobs/appliedseekers/" + props.jobs._id }> Applicants </Link>
+                
                 /
                 <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> Delete </a>
             </td>
@@ -33,6 +35,7 @@ export default class MyJobs extends Component {
     componentDidMount(){
         let userData = (localStorage.getItem('UserData'));
         let parsedData = JSON.parse(userData);//converting string json to object
+        try{
         axios.get('http://localhost:5000/jobs/myjobs/'+parsedData._id)
             .then(response => {
                 this.setState({ 
@@ -42,6 +45,9 @@ export default class MyJobs extends Component {
             .catch((err) =>{
                 console.log(err);
             });
+        }catch(ex){
+            console.log('error');
+        }
     }
     
 

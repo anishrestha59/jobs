@@ -5,8 +5,7 @@ const Schema = mongoose.Schema;
 const applySchema = new Schema({
     jobid: {
         type: String,
-        required:true,
-        unique:true,
+        required:true
     },
     seekerid: {
         type: String,

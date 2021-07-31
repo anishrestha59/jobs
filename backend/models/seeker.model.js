@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const seekerSchema = new Schema({
+    profile: String,
     seekername:{
         type: String,
         required: true,

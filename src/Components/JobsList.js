@@ -2,27 +2,30 @@ import React, { Component } from 'react';
 //import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { NavLink, Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 const Jobs= (props) =>{
     let user = props.userData;
     return (
         <tr>
-            <td>{props.jobs.jobname}</td>
+            <td><img className="rounded-circle" src="company.jpg" width="40" height="35" alt="companyimage"/></td>
+            <td>{props.jobs.jobname}</td>  
             <td>{props.jobs.description}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
             <td>
                 { !user &&
                 <>
                 
-                 <button type="button" class="btn btn-primary" >Apply</button>
+                 <button type="button" class="btn btn-primary" > Apply <FontAwesomeIcon icon = { faCoffee } /></button>
                  
                     {/* <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> ApplyTo login </a> */}
     </>
                 }
                  { user && user["seekername"] && 
                <React.Fragment>
-                   <NavLink className="NavLink" to={`job/${props.jobs._id}`}> Apply </NavLink>
+                   <NavLink className="NavLink" to={`job/${props.jobs._id}`}> Apply <FontAwesomeIcon icon = { faPlus } /> </NavLink>
 
                
                     {/* <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> ApplySeeker </a> */}
@@ -87,6 +90,7 @@ export default class JobsList extends Component {
     }
 
     jobsList(){
+        console.log(this.state.jobs);
         return this.state.jobs.map( (currentJobs) => {
             return<Jobs jobs={currentJobs} userData={this.state.userData} handleApply={this.handleApply} deleteJobs={this.deleteJobs} key={currentJobs._id} />;
         })
@@ -98,6 +102,7 @@ export default class JobsList extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
+                            <th>Company:</th>
                             <th>Jobname:</th>
                             <th>Description:</th>
                             <th>Deadline:</th>

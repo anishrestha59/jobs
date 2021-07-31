@@ -26,4 +26,10 @@ router.route('/:id').get((req, res) => {
         res.json(appliedjobs);
     });
 });
+
+router.route('/appliedseekers/:id').get((req, res) => {
+    AppliedJob.find({jobid: req.params.id},(err, appliedseekers) => {
+        res.json(appliedseekers);
+    });
+})
 module.exports = router;

@@ -60,6 +60,7 @@ export default function Header( {user} ) {
                         }
                            {user && user["seekername"] &&
                             <React.Fragment>
+                                <NavLink className="nav-link" to="/jobs/appliedjobs">Applied Jobs </NavLink>
 
                                 <NavDropdown title={user["seekername"]} id="basic-nav-dropdown">
                                     <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
@@ -71,6 +72,8 @@ export default function Header( {user} ) {
 
                                         }}>Logout</NavDropdown.Item>
                                 </NavDropdown>
+                                        
+
                             </React.Fragment>
                         }
                     </Nav>

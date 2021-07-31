@@ -1,5 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink, Link, useHistory } from 'react-router-dom';
+
+
+
+
+const Jobs= (props) =>{
+    let user = props.userData;
+    return (
+        <tr>
+            <td>{props.jobs['jobname']}</td>
+            <td>{props.jobs['description']}</td>
+            <td>{props.jobs.date.substring(0, 10)}</td>
+            <td>
+                Pending
+            </td>
+        </tr>
+
+    )
+}
 
 
 class AppliedJobs extends Component {
@@ -7,8 +26,12 @@ class AppliedJobs extends Component {
         super();
         this.state = {
             currentUser: {},
-            jobslist: []
+            jobslist: [],
+            jobs: []
         }
+
+
+
 
     }
 
@@ -30,43 +53,66 @@ class AppliedJobs extends Component {
             console.log(err);
         });
 
-        const jobslist = allDetails.map((job) => { return(job.jobid) });
+        const jobslist = await allDetails.map((job) => { return(job.jobid) });
         this.setState({
             jobslist
         });
+        this.jobListing();
     }
     
     jobListing = async() => {
         let a=[];
-         a = this.state.jobslist.map((jobid) => {
+        let jobs = [];
+         a = await this.state.jobslist.map( (jobid) => {
              axios.get(`http://localhost:5000/jobs/${jobid}`)
              .then(response => {
-                return 'a'
+            //    jobs.push(response.data);
+                jobs = [...this.state.jobs, response.data];
+              
+                this.setState({ jobs });
             })
             .catch((err) =>{
-                return 'b';
+                console.log(err);
             });
-           console.log(a)
-
+           
         });
+    
         
     }
+
+
+    deleteJobs(id){
+        axios.delete('http://localhost:5000/jobs/'+id)
+            .then(response => console.log(response.data));
+            
+        this.setState({
+            jobs: this.state.jobs.filter(element => element._id !== id)
+        })
+    }
+
+    jobsList(){
+        console.log(this.state.jobs);
+        return this.state.jobs.map( (currentJobs) => {
+            return<Jobs jobs={currentJobs} key={currentJobs._id} />;
+        })
+        }
+ 
     render() {
-        {this.jobListing()}
         return (
             <React.Fragment>
                 <div>
-                    <h4>Jobs:</h4>
+                    <h4>Your applied jobs:</h4>
                     <table className="table">
                         <thead className="thead-light">
                             <tr>
                                 <th>Jobname:</th>
                                 <th>Description:</th>
-                                <th>Deadline:</th>
+                                <th>Applied In:</th>
                                 <th>Status:</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {this.jobsList()}
                         </tbody>
                     </table>
                 </div>

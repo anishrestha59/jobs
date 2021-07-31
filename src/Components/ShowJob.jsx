@@ -12,7 +12,7 @@ export default class ShowJob extends Component {
     companyDetails: {},
   };
 
-  componentDidMount() {
+ async componentDidMount() {
     const user = localStorage.getItem("UserData");
     let parsedData = JSON.parse(user);
     this.setState({
@@ -20,11 +20,11 @@ export default class ShowJob extends Component {
     })
     
     let jobId = this.props.match.params.id;
-    
-    axios.get(`http://localhost:5000/jobs/${jobId}`)
+    let jobDetail
+    await axios.get(`http://localhost:5000/jobs/${jobId}`)
       .then((response) => {
-        console.log(response.data);
-        this.setState({
+        jobDetail = response.data;
+        this.setState({  
           jobDetail: response.data,
           jobId,
         });
@@ -32,14 +32,15 @@ export default class ShowJob extends Component {
       .catch((err) => {
         console.log(err,"this is err")
       })
+      this.getCompanyData(jobDetail.companyid);
    
   }
 
 
-  getCompanyData = () => {
-    axios.get(`http://localhost:5000/company/${this.state.jobDetail.companyid}`)
+  getCompanyData = (companyid) => {
+    axios.get(`http://localhost:5000/company/getdetails/${companyid}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           companyDetails: response.data,
         });
@@ -63,22 +64,51 @@ export default class ShowJob extends Component {
       .catch(err => {
         toast.error("already saved");
       })
-    this.props.history.push("/jobs/appliedJob");
+    this.props.history.push("/jobs/appliedjobs");
   }
             
   render() {
+    let Company = this.state.companyDetails;
+    let Job = this.state.jobDetail;
     return (
       <React.Fragment>
-        <div className="container">
-          <table>
-            
-            <tr className="row m-5"> {this.state.jobId}</tr>
-            <tr className="row m-5">{this.state.currentUser._id}</tr>
-            <tr className="row m-5">Job other details</tr>
-          
-          </table>
+            <div>
+            <img className="rounded-circle center" src="company.jpg" width="70" height="60" alt="companyimage"/>
+            </div>
+        <div>
+          <div className="container border border-primary">
+            <h2>Company Details:</h2>
+            <p>
+              Companyname: {this.state.companyDetails['companyname']}
+              <br />
+              Contact: {this.state.companyDetails.contact}
+              <br />
+              Address: {this.state.companyDetails.companyaddress}
+              <br />
+              <br />
+            </p>
+          </div>
+          <br></br>
+          <div className="container border border-success" >
 
-          <button onClick={ this.handleApply }>Apply</button>
+            <h2>Job details:</h2>
+            
+            JOb name: {this.state.jobDetail['jobname']}
+            <br />
+            Job Type: {this.state.jobDetail['jobtype']}
+            <br />
+            salary : {this.state.jobDetail['salary']}
+            <br />
+            Experience needed: {this.state.jobDetail['experience']}
+            <br />
+            jobshift: {this.state.jobDetail['jobshift']}
+            <br />
+            JOb name: {this.state.jobDetail['jobname']}
+
+            <button onClick={this.handleApply}>Apply</button>
+            {console.log(this.state.jobDetail)}
+
+          </div>
         </div>
       </React.Fragment>
     );

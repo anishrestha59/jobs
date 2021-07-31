@@ -22,10 +22,20 @@ const SeekerSignupScreen = () => {
     const [errorPassword, setErrorMessage] = useState(null);
     const [errorBack, setErrorBack] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [profilePic, setProfilePic] = useState();
     //const [picMessage, setPicMessage] = useState(null);
+
+
+
+    const imageUpload = (event) => {
+        console.log(event.target.files[0]);
+        setProfilePic(event.target.files[0]);
+    }
+
 
     const submitHandler = async(event) => {
         event.preventDefault();
+        console.log(profilePic.name,profilePic);
 
         if(password !== confirmPassword){
             setErrorMessage("password doesnot match");
@@ -39,25 +49,28 @@ const SeekerSignupScreen = () => {
                 }
                 setLoading(true)
 
-                const { data } = await axios.post("http://localhost:5000/seeker/",
-                    {
-                        seekername, 
-                        gender, 
-                        seekeraddress, 
-                        age, 
-                        contact, 
-                        skills, 
-                        salary, 
-                        experience, 
-                        password,
-                    },
+                const formdata = new FormData();
+                formdata.append('myFile',profilePic,profilePic.name)
+                formdata.append('seekername',seekername)
+                formdata.append('gender',gender)
+                formdata.append('seekeraddress',seekeraddress)
+                formdata.append('age',age)
+                formdata.append('contact',contact)
+                formdata.append('skills',skills)
+                formdata.append('salary',salary)
+                formdata.append('experience',experience)
+                formdata.append('password',password)
+                
+
+                const { data } = await axios.post("http://localhost:5000/seeker/",formdata
+                    ,
                     config,
                 );
 
                 setLoading(false);
                
                 localStorage.setItem("UserData", JSON.stringify(data));
-                window.location="/";
+                
 
           } catch (error) {
                 setErrorBack(error.response.data.message);
@@ -86,6 +99,8 @@ const SeekerSignupScreen = () => {
                 {loading && <Loading />}
                 <Form onSubmit= { submitHandler }>
                     <Form.Group className="mb-3" controlId="formBasicPhone">
+
+                        <input type="file" className="form-control" name="myFile" onChange={ imageUpload }/>
                     <Form.Label>Full Name</Form.Label>
                         <Form.Control
                             type="text"
