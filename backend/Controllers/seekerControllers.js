@@ -7,6 +7,7 @@ const registerSeeker = asyncHandler(async(req, res) => {
     const {seekername, gender, seekeraddress, age, contact, skills, salary, experience, password } = req.body;
     const profile = req.file.filename;
     
+    console.log(req.file)
     const seekerExists = await Seeker.findOne({ contact });
 
     if (seekerExists){

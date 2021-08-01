@@ -5,7 +5,7 @@ var multer  = require('multer')
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '/jobportalreact/jobs/backend/public/images')
+      cb(null, '/jobportalreact/jobs/public')
     },
     filename: function (req, file, cb) {
       cb(null, Date.now()+'_'+file.originalname)

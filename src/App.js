@@ -20,6 +20,7 @@ import MyJobs from './Components/MyJobs';
 import ShowJob from './Components/ShowJob';
 import AppliedJobs from './Components/AppliedJobs';
 import AppliedSeekers from './Components/AppliedSeekers';
+import ShowSeeker from './Components/ShowSeeker';
 
 import './App.css';
 
@@ -46,19 +47,20 @@ export default class App extends Component {
         <ToastContainer/>
          <Switch> 
            
-            <Route path = "/" exact component = { JobsList } />
-            <Route path = "/jobs/update" component = { EditJobs } />
+            <Route path = "/" exact component = { JobsList }/>
+            <Route path = "/jobs/update" component = { EditJobs }/>
             <Route path = "/jobs/create" component = { CreateJobs }/>
-            <Route path = "/users/add"  component = { CreateUsers } />
-            <Route path = "/company" exact component = { SignupCompany } />
-            <Route path = "/company/login" component = { LoginCompany } />
-            <Route path = "/seeker/login" component = { LoginSeeker } />
-            <Route path = "/seeker/" component = { SignupSeeker } />
-            <Route path = "/userprofile/" component = { UserProfile } />
-            <Route path = "/company/myjobs/" exact component = { MyJobs } />
-            <Route path = "/job/:id" component = { ShowJob } />
+            <Route path = "/users/add"  component = { CreateUsers }/>
+            <Route path = "/company" exact component = { SignupCompany }/>
+            <Route path = "/company/login" component = { LoginCompany }/>
+            <Route path = "/seeker/login" component = { LoginSeeker }/>
+            <Route path = "/seeker/" component = { SignupSeeker }/>
+            <Route path = "/userprofile/" component = { UserProfile }/>
+            <Route path = "/company/myjobs/" exact component = { MyJobs }/>
+            <Route path = "/job/:id" component = { ShowJob }/>
             <Route path = "/jobs/appliedjobs" component = { AppliedJobs }/>
             <Route path = "/jobs/appliedseekers/:id" component = { AppliedSeekers }/>
+            <Route path = "/showseeker/:id" component = { ShowSeeker}/>
 
             
             

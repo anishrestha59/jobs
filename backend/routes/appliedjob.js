@@ -21,6 +21,12 @@ router.route('/add').post((req, res) => {
     })
 });
 
+router.route('/getdetail/:id').get((req, res) => {
+    AppliedJob.findById(req.params.id)
+        .then(appliedinfo => res.json(appliedinfo))
+        .catch(err => res.status(400).json('Error' + err));
+});
+
 router.route('/:id').get((req, res) => {
     AppliedJob.find({seekerid: req.params.id},(err,appliedjobs) => {
         res.json(appliedjobs);

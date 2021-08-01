@@ -70,6 +70,7 @@ const SeekerSignupScreen = () => {
                 setLoading(false);
                
                 localStorage.setItem("UserData", JSON.stringify(data));
+                window.location = "/";
                 
 
           } catch (error) {
