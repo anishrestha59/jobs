@@ -40,6 +40,7 @@ router.route('/add').post((req, res) => {
 
 });
 
+
 router.route('/:id').get((req, res) => {
     Job.findById(req.params.id)
         .then(jobs => res.json(jobs))

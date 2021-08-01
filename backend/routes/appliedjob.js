@@ -4,12 +4,12 @@ let AppliedJob = require('../models/applied.model');
 router.route('/add').post((req, res) => {
     const jobid = req.body.jobid;
     const seekerid = req.body.seekerid;
-
-    console.log(jobid,seekerid);
+    const message = req.body.message;
 
     const newAppliedJob = new AppliedJob({
         jobid,
-        seekerid
+        seekerid,
+        message
     });
 
     newAppliedJob.save()
@@ -19,6 +19,21 @@ router.route('/add').post((req, res) => {
     .catch(err => {
          res.status(400).json('Error' + err)
     })
+});
+
+router.route('/update/:id').post((req, res) => {
+    AppliedJob.findById(req.params.id)
+        .then(apply => {
+
+            apply.seekerid = req.body.seekerid;
+            apply.jobid = req.body.jobid;
+            apply.message = req.body.message;
+
+            apply.save()
+                .then(() => res.json(apply))
+                .catch(err => res.status(400).json('Error' + err));
+        })
+        .catch(err => res.status(400).json('Error' + err));
 });
 
 router.route('/getdetail/:id').get((req, res) => {

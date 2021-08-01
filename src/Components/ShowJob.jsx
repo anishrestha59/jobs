@@ -51,7 +51,8 @@ export default class ShowJob extends Component {
         
         const applyJob = {
             jobid: this.state.jobId,
-            seekerid: this.state.currentUser._id
+            seekerid: this.state.currentUser._id,
+            message: "wait",
         }
        
 

@@ -10,7 +10,11 @@ const applySchema = new Schema({
     seekerid: {
         type: String,
         required: true,
-    }
+    },
+    message:{
+        type: String,
+        required: true,
+    },
 }, {
     timestamps: true,
 });
