@@ -51,10 +51,17 @@ console.log(jobid);
 
     return (
         <div className="container" >
-            {error && <ErrorMessage variant ="danger">{error}</ErrorMessage>}
-            {loading && <Loading />}
-
+            
+            <div className="py-5" style={{ backgroundColor: "#e9ecef"  }}>
+            <div className="py-3 mx-auto justify-content-center bg-light col-xl-5 col-lg-4 col-md-5 col-sm-6 col-12 ">
+    
             <Form onSubmit= { submitHandler }>
+                <div className=" d-flex justify-content-center" style={{ backgroundColor: "#e9ecef"  }}>
+                    <h1 class="text-primary display-5">Seeker Login </h1>
+                    
+                </div>
+                
+            
                 <Form.Group className="mb-3" controlId="formBasicPhone">
                     <Form.Label>seeker Phone</Form.Label>
                     <Form.Control
@@ -67,7 +74,7 @@ console.log(jobid);
                         We'll never share your phone with anyone else.
                     </Form.Text>
                 </Form.Group>
-
+                
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
@@ -78,12 +85,27 @@ console.log(jobid);
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Check type="checkbox" label="I accept Term of use" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <div class="d-grid gap-2 col-12 mx-auto  d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">LOGIN</button>
+                </div>
+               
             </Form>
+            <a
+              className="d-flex d-xl-flex justify-content-center  text-center"
+              href="/"
+            >
+              <br />
+              Forgot password?
+            </a>
+            <div className="mt-3">
+              <p className="text-center">
+                Don't have an account&nbsp;<a href="/register">Sign up</a>
+              </p>
+            </div>
+            </div>
+            </div>
         </div>
     )
 }
