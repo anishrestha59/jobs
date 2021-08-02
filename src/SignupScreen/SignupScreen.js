@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-
+import toast from 'react-toastify';
 import Loading from '../Components/Loading';
 import ErrorMessage from '../Components/ErrorMessage';
 
@@ -18,9 +18,15 @@ const SignupScreen = () => {
     const [errorPassword, setErrorMessage] = useState(null);
     const [errorBack, setErrorBack] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [profilePic, setProfilePic] = useState();
+    
 
     //const [picMessage, setPicMessage] = useState(null);
 
+    const imageUpload = (event) => {
+          
+        setProfilePic(event.target.files[0]);
+    }
 
     function checkPassword(event) {
 
@@ -56,24 +62,31 @@ const SignupScreen = () => {
                     },
                 }
                 setLoading(true)
+                const formdata = new FormData();
+                formdata.append('myFile', profilePic, profilePic.name)
+                formdata.append('companyname', companyname)
+                formdata.append('contact', contact)
+                formdata.append('companyaddress', companyaddress)
+                formdata.append('password', password)
+              
 
-                const { data } = await axios.post("http://localhost:5000/company/",
-                    {
-                        companyname,
-                        contact,
-                        companyaddress,
-                        password,
-                    },
+                await axios.post("http://localhost:5000/company/",formdata,
                     config,
-                );
+                )
+                .then((response)=>{
+                    console.log('responsed data:',response.data);
+                    localStorage.setItem("UserData", JSON.stringify(response.data));
+                    setLoading(false);
+                    window.location = '/'
+                
+                }).catch((err) => {
+                    toast.error('phone already exist');
+                    setErrorBack('phone already exist');
+                    console.log(err);
+                });
 
-                setLoading(false);
-
-                localStorage.setItem("UserData", JSON.stringify(data));
-                window.location = "/";
 
             } catch (error) {
-                setErrorBack('phone already exist');
                 setLoading(false);
             }
         }
@@ -110,6 +123,7 @@ const SignupScreen = () => {
                             </div>
 
                             <Form.Group className="mb-3" controlId="formBasicPhone">
+                            <input type="file" className="form-control" name="myFile" onChange={imageUpload} />
                                 <Form.Label>Company Name</Form.Label>
                                 <Form.Control
                                     type="text"

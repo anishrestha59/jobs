@@ -14,6 +14,8 @@ router.route('/myjobs/:id').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
+    const companyprofile = req.body.companyprofile;
+    const companyname = req.body.companyname;
     const companyid = req.body.companyid;
     const jobname = req.body.jobname;
     const jobtype = req.body.jobtype;
@@ -24,6 +26,8 @@ router.route('/add').post((req, res) => {
     const date = Date.parse(req.body.date);
 
     const newJobs = new Job({
+        companyprofile,
+        companyname,
         companyid,
         jobname,
         jobtype,
@@ -56,6 +60,10 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Job.findById(req.params.id)
         .then(jobs => {
+            
+            jobs.companyprofile = req.body.companyprofile;
+            jobs.companyname = req.body.companyname;
+            jobs.companyid = req.body.companyid;
             jobs.jobname = req.body.jobname;
             jobs.jobtype = req.body.jobtype;
             jobs.jobshift = req.body.jobshift;

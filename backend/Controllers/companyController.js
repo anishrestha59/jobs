@@ -4,6 +4,7 @@ const generateToken = require('../utils/generateToken');
 
 const registerCompany = asyncHandler(async(req, res) => {
     const { companyname, contact, companyaddress, password} = req.body;
+    const profile = req.file.filename;
 
     const companyExists = await Company.findOne({ contact });
 
@@ -13,6 +14,7 @@ const registerCompany = asyncHandler(async(req, res) => {
     }
 
         const newCompany = await Company.create({
+            profile,
             companyname,
             contact,
             companyaddress,
@@ -21,6 +23,7 @@ const registerCompany = asyncHandler(async(req, res) => {
     
         if(newCompany){
             res.status(201).json({
+                profile:newCompany.profile,
                 _id:newCompany._id,
                 companyname:newCompany.companyname,
                 contact:newCompany.contact,
@@ -41,6 +44,7 @@ const authCompany = asyncHandler(async(req, res) => {
 
     if(foundCompany && (await foundCompany.matchPassword(password))){
         res.json({
+            profile:foundCompany.profile,
             _id:foundCompany._id,
             companyname:foundCompany.companyname,
             contact:foundCompany.contact,

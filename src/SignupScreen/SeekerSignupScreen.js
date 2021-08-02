@@ -50,17 +50,17 @@ const SeekerSignupScreen = () => {
                 }
                 setLoading(true)
 
-                const formdata = new FormData();
-                formdata.append('myFile', profilePic, profilePic.name)
-                formdata.append('seekername', seekername)
-                formdata.append('gender', gender)
-                formdata.append('seekeraddress', seekeraddress)
-                formdata.append('age', age)
-                formdata.append('contact', contact)
-                formdata.append('skills', skills)
-                formdata.append('salary', salary)
-                formdata.append('experience', experience)
-                formdata.append('password', password)
+                    const formdata = new FormData();
+                    formdata.append('myFile', profilePic, profilePic.name)
+                    formdata.append('seekername', seekername)
+                    formdata.append('gender', gender)
+                    formdata.append('seekeraddress', seekeraddress)
+                    formdata.append('age', age)
+                    formdata.append('contact', contact)
+                    formdata.append('skills', skills)
+                    formdata.append('salary', salary)
+                    formdata.append('experience', experience)
+                    formdata.append('password', password)
 
 
                 const { data } = await axios.post("http://localhost:5000/seeker/", formdata

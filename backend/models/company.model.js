@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const companySchema = new Schema({
+    profile:{
+        type: String
+    },
     companyname:{
         type: String,
         required: true

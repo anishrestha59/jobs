@@ -10,7 +10,7 @@ const Jobs= (props) =>{
     let user = props.userData;
     return (
         <tr>
-            <td><img className="rounded-circle" src="company.jpg" width="40" height="35" alt="companyimage"/></td>
+            <td><img className="rounded-circle" src={`/${props.jobs['companyprofile']}`} width="40" height="35" alt={props.jobs['companyprofile']}/></td>
             <td>{props.jobs.jobname}</td>  
             <td>{props.jobs.description}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>

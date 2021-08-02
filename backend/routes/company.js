@@ -1,8 +1,20 @@
 const router = require('express').Router();
 const { registerCompany, authCompany, updateCompany } = require('../Controllers/companyController')
 let Company = require('../models/company.model');
+var multer  = require('multer')
 
-router.route('/').post(registerCompany);
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/jobportalreact/jobs/public')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now()+'_'+file.originalname)
+    }
+  })
+   
+  var upload = multer({ storage: storage })
+
+router.route('/').post(upload.single('myFile'),registerCompany);
 router.route('/login').post(authCompany);
 
 router.route('/update/:id').post((req, res) => {

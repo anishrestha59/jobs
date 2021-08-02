@@ -7,6 +7,8 @@ export default class CreateJobs extends Component {
     constructor(){
         super()
         this.state = {
+          companyprofile:'',
+          companyname:'',
             companyid:'',
             jobname: '',
             jobtype: '',
@@ -29,6 +31,8 @@ export default class CreateJobs extends Component {
 
     if(parsedData.hasOwnProperty("companyname")){
       this.setState({
+        companyprofile: parsedData.profile,
+        companyname: parsedData.companyname,
         companyid: parsedData._id
       });
 
@@ -79,6 +83,8 @@ export default class CreateJobs extends Component {
         event.preventDefault();
 
         const registered = {
+            companyprofile: this.state.companyprofile,
+            companyname: this.state.companyname,
             companyid: this.state.companyid,
             jobname: this.state.jobname,
             jobtype: this.state.jobtype,

@@ -46,6 +46,7 @@ const registerSeeker = asyncHandler(async(req, res) => {
             res.status(400)
             throw new Error('error occured!');
         }
+
 });
 
 const authSeeker = asyncHandler(async(req, res) => {
@@ -55,6 +56,7 @@ const authSeeker = asyncHandler(async(req, res) => {
 
     if(foundSeeker && (await foundSeeker.matchPassword(password))){
         res.json({
+            profile:foundSeeker.profile,
             _id:foundSeeker._id,
             seekername:foundSeeker.seekername,
             gender:foundSeeker.gender,
