@@ -72,15 +72,15 @@ updateMessage = async (message) => {
 }
 
 handleMessage = (e) => {
-    if(e.currentTarget.id === "invite"){
+    if(e.currentTarget.id === "Invited"){
         this.updateMessage(e.currentTarget.id);
         
  
-    }else if(e.currentTarget.id === "reject"){
+    }else if(e.currentTarget.id === "Rejected"){
         this.updateMessage(e.currentTarget.id);
 
     } 
-    else if(e.currentTarget.id === "wait"){
+    else if(e.currentTarget.id === "On wait"){
         this.updateMessage(e.currentTarget.id);
     }
     else{
@@ -119,9 +119,9 @@ handleTextMessage = (e) => {
             </div>
             <div>
               <b>  Response to seeker:</b>
-                <button id="invite" onClick={ this.handleMessage }>Invite to interview</button>
-                <button id="reject" onClick={ this.handleMessage }>Reject</button>
-                <button id="wait" onClick={ this.handleMessage }>Wait</button>
+                <button id="Invited" onClick={ this.handleMessage }>Invite to interview</button>
+                <button id="Rejected" onClick={ this.handleMessage }>Reject</button>
+                <button id="On wait" onClick={ this.handleMessage }>Wait</button>
                 <div class="input-group">
                         <div className="input-group-prepend">
                             <span className="input-group-text">Short message</span>

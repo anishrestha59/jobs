@@ -13,7 +13,7 @@ const Jobs= (props) =>{
             <td>{props.jobs['description']}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
             <td>
-                Pending
+               {props.jobs['message']}
             </td>
         </tr>
 
@@ -53,7 +53,12 @@ class AppliedJobs extends Component {
             console.log(err);
         });
 
-        const jobslist = await allDetails.map((job) => { return(job.jobid) });
+        const jobslist = await  allDetails.map((job) => { 
+            let obj;
+            obj = {'jobid': job.jobid, 'appliedid': job._id, 'message':job.message}
+            return(obj); 
+        });
+        
         this.setState({
             jobslist
         });
@@ -63,13 +68,14 @@ class AppliedJobs extends Component {
     jobListing = async() => {
         let a=[];
         let jobs = [];
-         a = await this.state.jobslist.map( (jobid) => {
-             axios.get(`http://localhost:5000/jobs/${jobid}`)
+         a = await this.state.jobslist.map( (appliedinfo) => {
+             axios.get(`http://localhost:5000/jobs/${appliedinfo['jobid']}`)
              .then(response => {
             //    jobs.push(response.data);
-                jobs = [...this.state.jobs, response.data];
-              
-                this.setState({ jobs });
+            const obj = Object.assign(response.data, { appliedid: appliedinfo['appliedid'] }, { 'message': appliedinfo['message'] })
+            console.log(obj);
+            jobs = [...this.state.jobs, obj];
+            this.setState({ jobs });
             })
             .catch((err) =>{
                 console.log(err);
