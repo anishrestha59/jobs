@@ -139,7 +139,7 @@ export default class JobsList extends Component {
             <div className="row">
 
 
-                <div className="col2">
+                <div className="col-2">
                     <ListGroup items={this.state.jobTypes}
                         selectedItem={this.state.selectedJobType}
                         onItemSelect={this.selectJobType} />

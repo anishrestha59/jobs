@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button,Container} from 'react-bootstrap';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import userType from './checkUser'
+import {LinkContainer} from 'react-router-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserAlt, faCartPlus} from '@fortawesome/free-solid-svg-icons';
 
 export default function Header( {user} ) {
     const history = useHistory();
 
 
     return (
-        <div className="Container">
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/">Job Sanjal</Navbar.Brand>
+        <header>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Container>
+                <LinkContainer to='/'>
+                    <Navbar.Brand >Job Sanjal</Navbar.Brand>
+                </LinkContainer>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="me-auto">
                         <NavLink className="nav-link" to="/">Home</NavLink>
                         <NavLink className="nav-link" to="/users/add">Recommended</NavLink>
-
+                </Nav>
+                <Nav>
                         {!user && <React.Fragment>
 
                             <NavDropdown title="Login" id="basic-nav-dropdown">
-                                <NavDropdown.Item className="small">
-                                    <Link className="nav-link" to="/company/login">Company Login</Link>
-                                    </NavDropdown.Item>
-                                <NavDropdown.Item> 
-                                    <Link className="nav-link" to="/seeker/login">Seeker Login</Link>
-                                </NavDropdown.Item>
+                                
+
+                                    <NavDropdown.Item href="/company/login">Company Login</NavDropdown.Item>
+                                <NavDropdown.Item href="/seeker/login">Seeker Login</NavDropdown.Item>
+
+                               
 
                             </NavDropdown>
                         </React.Fragment>
@@ -34,8 +42,8 @@ export default function Header( {user} ) {
                         {!user && <React.Fragment>
 
                             <NavDropdown title="Signup" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/company">Company Signup</NavDropdown.Item>
-                                <NavDropdown.Item href="/seeker">Seeker Signup</NavDropdown.Item>
+                                <NavDropdown.Item ><NavLink className="nav-link" style={{color:"black"}} to="/company">Company Signup</NavLink></NavDropdown.Item>
+                                <NavDropdown.Item><NavLink className="nav-link" style={{color:"black"}} to="/seeker">Seeker Signup</NavLink></NavDropdown.Item>
 
                             </NavDropdown> 
                         </React.Fragment>
@@ -77,14 +85,13 @@ export default function Header( {user} ) {
                             </React.Fragment>
                         }
                     </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
+                    
 
                 </Navbar.Collapse>
+                </Container>
+                
             </Navbar>
 
-        </div>
+        </header>
     )
 }

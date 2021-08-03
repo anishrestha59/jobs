@@ -42,7 +42,7 @@ export default class App extends Component {
       return (
       <React.Fragment>
       <Router>
-      <div className="container">
+
          <Header user={this.state.parsedData}/>
         <ToastContainer/>
          <Switch> 
@@ -66,7 +66,7 @@ export default class App extends Component {
             
           </Switch>
   
-        </div>
+ 
       </Router>
       </React.Fragment>
     );
