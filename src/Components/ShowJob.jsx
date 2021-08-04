@@ -14,6 +14,7 @@ export default class ShowJob extends Component {
     jobDetail: {},
     jobId: "",
     companyDetails: {},
+    alreadyApplied: false
   };
 
  async componentDidMount() {
@@ -37,7 +38,7 @@ export default class ShowJob extends Component {
         console.log(err,"this is err")
       })
       this.getCompanyData(jobDetail.companyid);
-   
+      this.checkAlreadyApplied(jobId, parsedData._id )
   }
 
 
@@ -49,10 +50,27 @@ export default class ShowJob extends Component {
           companyDetails: response.data,
         });
       });
+      
   };
 
+  checkAlreadyApplied = (jobid, seekerid) => {
+    axios.get(`http://localhost:5000/appliedjobs/checkappliedjob/${jobid}/${seekerid}`)
+      .then((response)=>{
+        if(response.data.length === 0 ){
+          console.log("yeah there are no applied jobs")
+          this.setState({ alreadyApplied: false });
+        }else{
+          console.log("applied jobs true")
+          this.setState({ alreadyApplied: true});
+        }
+      
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
   handleApply = () => {
-        
+      if(!this.state.alreadyApplied){  
         const applyJob = {
             jobid: this.state.jobId,
             seekerid: this.state.currentUser._id,
@@ -71,10 +89,16 @@ export default class ShowJob extends Component {
       })
     this.props.history.push("/jobs/appliedjobs");
   }
+  else{
+    toast.error("already applied");
+  }
+}
             
   render() {
     let Company = this.state.companyDetails;
     let Job = this.state.jobDetail;
+
+    const { alreadyApplied } = this.state;
     return (
       <React.Fragment>
         <Link className='btn btn-dark my-3' to='/'>
@@ -82,13 +106,14 @@ export default class ShowJob extends Component {
         </Link>
         <Row>
           <Col md={6} >
-            <Image src= {'/1627899426459_maxresdefault.jpg'} rounded  fluid />   
+            {console.log(this.state.companyDetails)}
+            <Image src= {`/${this.state.companyDetails['profile']}`} alt={this.state.companyDetails['profile']} rounded  fluid alt={this.state.companyDetails['profile']} />   
 
             <Card className='my-5'>
             <Card.Body>
               <Card.Title className="bg-dark text-white">Company Details</Card.Title>
               <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faBuilding} /> Company name : {this.state.companyDetails['companyname']} </Card.Subtitle>
-              <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faPhone} /> contact : {this.state.companyDetails.contact} </Card.Subtitle>
+              <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faPhone} /> Contact : {this.state.companyDetails.contact} </Card.Subtitle>
         
               <Card.Text>
                 Some quick example text to build on the card title and make up the bulk of
@@ -107,10 +132,10 @@ export default class ShowJob extends Component {
 
           <Col md={6} >
             <div className="d-grid gap-2">
-              <Button variant="outline-dark" size="lg" onClick={this.handleApply}>
+              <Button variant="outline-dark" className={ (alreadyApplied)? "disabled" : ""} size="lg" onClick={this.handleApply}>
                 APPLY FOR JOB
               </Button>
-              {console.log(this.state.jobDetail)}
+           
             </div>
             <Card className='my-5'>
             <Card.Header className="bg-dark text-white d-flex justify-content-center" as="h5">Basic job information</Card.Header>
@@ -174,11 +199,14 @@ export default class ShowJob extends Component {
 
               </ListGroup>  
             </Card>
+            
             <div className="d-grid gap-2">
-              <Button variant="outline-dark" size="lg" onClick={this.handleApply}>
+              <Button variant="outline-dark"
+              className={ (alreadyApplied)? "disabled" : ""}
+                size="lg" onClick={this.handleApply}>
                 APPLY FOR JOB
               </Button>
-              {console.log(this.state.jobDetail)}
+              
             </div>
           </Col>
         </Row>    

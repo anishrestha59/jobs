@@ -44,13 +44,32 @@ router.route('/getdetail/:id').get((req, res) => {
 
 router.route('/:id').get((req, res) => {
     AppliedJob.find({seekerid: req.params.id},(err,appliedjobs) => {
+        if(err){
+            throw new err;
+        }else{
         res.json(appliedjobs);
+        }
     });
 });
 
 router.route('/appliedseekers/:id').get((req, res) => {
     AppliedJob.find({jobid: req.params.id},(err, appliedseekers) => {
+        if(err){
+            throw err;
+        }else{
         res.json(appliedseekers);
+        }
     });
+})
+
+router.route('/checkappliedjob/:jobid/:seekerid').get((req, res) => {
+    
+    AppliedJob.find({jobid:req.params.jobid, seekerid:req.params.seekerid},(err, appliedseekers) => {
+        if(err){
+            throw err;
+        }else{
+            res.json(appliedseekers);
+        }
+    })
 })
 module.exports = router;

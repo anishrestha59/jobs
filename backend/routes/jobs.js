@@ -9,7 +9,11 @@ router.route('/').get((req, res) => {
 
 router.route('/myjobs/:id').get((req, res) => {
     Job.find({companyid: req.params.id},(err,jobs=[]) => {
-        res.json(jobs);
+        if(err){
+            throw err;
+        }else{
+            res.json(jobs);
+        }
     });
 });
 

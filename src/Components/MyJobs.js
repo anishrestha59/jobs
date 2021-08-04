@@ -7,6 +7,7 @@ const Jobs= props =>{
         <tr>
             <td>{props.jobs.jobname}</td>
             <td>{props.jobs.description}</td>
+            <td>{props.jobs.createdAt.substring(0,10)}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
             <td>
                 {/* <Link to={"/update" + props.jobs._id}> Edit </Link> */}
@@ -68,12 +69,14 @@ export default class MyJobs extends Component {
     render() {
         return (
             <div>
+                {console.log(this.state.jobs)}
                 <h4>  Jobs:</h4>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
                             <th>Jobname:</th>
                             <th>Description:</th>
+                            <th>Created in:</th>
                             <th>Deadline:</th>
                             <th>Actions:</th>
                         </tr>

@@ -6,6 +6,11 @@ const Seekers= (props) =>{
     const appliedid = props.seekers['appliedid']
     return (
         <tr>
+            <td><img className="rounded-circle" 
+            src={`/${props.seekers['profile']}`} 
+            width="40" height="35" 
+            alt={props.seekers['profile']} 
+            /> </td>
             <td>{props.seekers['seekername']}</td>
             <td>{props.seekers['skills']}</td>
             <td>{props.seekers['age']}</td>
@@ -104,6 +109,7 @@ export default class AppliedSeekers extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
+                            <th></th>
                             <th>SeekerName:</th>
                             <th>Expert in:</th>
                             <th>Age:</th>

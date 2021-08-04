@@ -36,11 +36,12 @@ const SeekerSignupScreen = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        console.log(profilePic.name, profilePic);
+       console.log('submit pressed')
 
         if (password !== confirmPassword) {
             setErrorMessage("password doesnot match");
-        } else {
+        } 
+        else {
 
             try {
                 const config = {
@@ -63,15 +64,21 @@ const SeekerSignupScreen = () => {
                     formdata.append('password', password)
 
 
-                const { data } = await axios.post("http://localhost:5000/seeker/", formdata
+                await axios.post("http://localhost:5000/seeker/", formdata
                     ,
                     config,
-                );
+                ).then((response)=>{
+                    console.log('responsed data:',response.data);
+                    localStorage.setItem("UserData", JSON.stringify(response.data));
+                    setLoading(false);
+                    window.location = '/'
+                
+                }).catch((err) => {
+                    toast.error('phone already exist');
+                    setErrorBack('phone already exist');
+                    console.log(err);
+                });
 
-                setLoading(false);
-
-                localStorage.setItem("UserData", JSON.stringify(data));
-                window.location = "/"
 
 
             } catch (error) {

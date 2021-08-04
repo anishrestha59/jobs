@@ -10,7 +10,7 @@ export default function Header( {user} ) {
     const history = useHistory();
 
 
-    return (
+    return ( 
         <header>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
