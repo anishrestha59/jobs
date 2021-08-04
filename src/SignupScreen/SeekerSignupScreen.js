@@ -24,6 +24,7 @@ const SeekerSignupScreen = () => {
     const [errorBack, setErrorBack] = useState(false);
     const [loading, setLoading] = useState(false);
     const [profilePic, setProfilePic] = useState();
+    const [passwordMatchError, setPasswordMatchError] = useState(false);
     //const [picMessage, setPicMessage] = useState(null);
 
 
@@ -90,6 +91,16 @@ const SeekerSignupScreen = () => {
             }
         }
 
+    }
+
+    function checkPassword(event) {
+console.log(event)
+        if (password === event.target.value) {
+            setPasswordMatchError(false);
+        }
+        else {
+            setPasswordMatchError(true);
+        }
     }
 
     // const postDetails= ( pics ) => {
@@ -182,7 +193,9 @@ const SeekerSignupScreen = () => {
                                     type="text"
                                     value={experience}
                                     placeholder="Enter Experience"
-                                    onChange={(event) => setExperience(event.target.value)}
+                                    onChange={(event) => {
+                                        setExperience(event.target.value)
+                                    }}
                                 />
                             </Form.Group>
 
@@ -192,16 +205,26 @@ const SeekerSignupScreen = () => {
                                     type="password"
                                     value={password}
                                     placeholder="Password"
+                                    onInput={ (e) => checkPassword(e)}
                                     onChange={(event) => setPassword(event.target.value)}
-                                />
+                                
+                                     />
                                  {errorPassword && <ErrorMessage variant="danger">{errorPassword}</ErrorMessage>}
+                                
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control
                                     type="password"
                                     value={confirmPassword}
                                     placeholder="Confirm Password"
-                                    onChange={(event) => setConfirmPassword(event.target.value)}
+                                    onInput={ (e) => checkPassword(e)}
+                                    onChange = {(event) =>setConfirmPassword(event.target.value)}
                                 />
+                                {passwordMatchError && 
+                                <React.Fragment>
+                                     <Form.Text className="text-danger">
+                                            Password doesn't match!!
+                                        </Form.Text>    
+                                </React.Fragment>}
                             </Form.Group>
                             <div className="d-flex justify-content-center d-grid gap-2 col-12 mx-auto">
                                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">REGISTER</button>

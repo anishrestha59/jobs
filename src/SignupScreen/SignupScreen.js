@@ -133,11 +133,12 @@ const SignupScreen = () => {
                             </div>
 
                             <Form.Group className="mb-3" controlId="formBasicPhone">
-                            <input type="file" className="form-control" name="myFile" onChange={imageUpload} />
+                            <input type="file" reqired className="form-control" name="myFile" onChange={imageUpload} />
                                 <Form.Label>Company Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     value={companyname}
+                                    required
                                     placeholder="Enter Company Name"
                                     onChange={(event) => setCompanyName(event.target.value)}
                                 />
@@ -145,6 +146,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="number"
                                     value={contact}
+                                    required
                                     placeholder="Enter Phone"
                                     onChange={(event) => setContact(event.target.value)}
                                 />
@@ -156,6 +158,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="text"
                                     value={companyaddress}
+                                    required
                                     placeholder="Enter Address"
                                     onChange={(event) => setAddress(event.target.value)}
                                 />
@@ -163,13 +166,16 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="text"
                                     value={country}
+                                    required
                                     placeholder="Country name"
                                     onChange={(event) => setCountry(event.target.value)}
                                 />
                                  <Form.Label>Email</Form.Label>
                                 <Form.Control
-                                    type="email"
+                                    type = "email"
+                                    id = "email"
                                     value={email}
+                                    required
                                     placeholder="Enter email address"
                                     onChange={(event) => setEmail(event.target.value)}
                                 />
@@ -177,6 +183,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="text"
                                     value={companywebsite}
+                                    required
                                     placeholder="Enter Company Website"
                                     onChange={(event) => setWebsite(event.target.value)}
                                 />
@@ -184,6 +191,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="number"
                                     value={postalcode}
+                                    required
                                     placeholder="Enter Postal code"
                                     onChange={(event) => setPostalCode(event.target.value)}
                                 />
@@ -194,6 +202,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="password"
                                     value={password}
+                                    required
                                     placeholder="Password"
                                     onChange={(event) => setPassword(event.target.value)}
                                     onInput={checkPassword}
@@ -202,6 +211,7 @@ const SignupScreen = () => {
                                 <Form.Control
                                     type="password"
                                     value={confirmPassword}
+                                    required
                                     placeholder="Confirm Password"
                                     onChange={checkPassword}
                                     onInput={(event) => setConfirmPassword(event.target.value)}
@@ -210,7 +220,7 @@ const SignupScreen = () => {
 
                                 {passwordMatchError &&
                                     <React.Fragment>
-                                        <Form.Text style={{ textColor: "red" }} className="text-muted ">
+                                        <Form.Text className="text-danger">
                                             Password doesn't match!!
                                         </Form.Text>
                                     </React.Fragment>
