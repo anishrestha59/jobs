@@ -23,6 +23,10 @@ router.route('/update/:id').post((req, res) => {
             company.companyname = req.body.companyname;
             company.contact = req.body.contact;
             company.companyaddress = req.body.companyaddress;
+            company.country = req.body.country;
+            company.email = req.body.email;
+            company.companywebsite = req.body.companywebsite;
+            company.postalcode = req.body.postalcode; 
             company.password = req.body.password;
 
             company.save()

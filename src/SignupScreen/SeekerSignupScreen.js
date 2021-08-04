@@ -64,13 +64,11 @@ const SeekerSignupScreen = () => {
                     formdata.append('password', password)
 
 
-                await axios.post("http://localhost:5000/seeker/", formdata
+                const {data} = await axios.post("http://localhost:5000/seeker/", formdata
                     ,
                     config,
                 ).then((response)=>{
-                    console.log('responsed data:',response.data);
                     localStorage.setItem("UserData", JSON.stringify(response.data));
-                    setLoading(false);
                     window.location = '/'
                 
                 }).catch((err) => {
@@ -79,6 +77,9 @@ const SeekerSignupScreen = () => {
                     console.log(err);
                 });
 
+                localStorage.setItem("UserData", JSON.stringify(data));
+                window.location = '/'
+            
 
 
             } catch (error) {

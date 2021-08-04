@@ -3,7 +3,7 @@ let Company = require('../models/company.model');
 const generateToken = require('../utils/generateToken');
 
 const registerCompany = asyncHandler(async(req, res) => {
-    const { companyname, contact, companyaddress, password} = req.body;
+    const { companyname, contact, companyaddress, country, email, companywebsite, postalcode, password} = req.body;
     const profile = req.file.filename;
 
     const companyExists = await Company.findOne({ contact });
@@ -18,6 +18,10 @@ const registerCompany = asyncHandler(async(req, res) => {
             companyname,
             contact,
             companyaddress,
+            country,
+            email,
+            companywebsite,
+            postalcode,
             password,
         });
     
@@ -28,6 +32,10 @@ const registerCompany = asyncHandler(async(req, res) => {
                 companyname:newCompany.companyname,
                 contact:newCompany.contact,
                 companyaddress:newCompany.companyaddress,
+                country:newCompany.country,
+                email:newCompany.email,
+                companywebsite:newCompany.website,
+                postalcode:newCompany.postalcode,
                 password:newCompany.password,
                
             });
@@ -49,6 +57,10 @@ const authCompany = asyncHandler(async(req, res) => {
             companyname:foundCompany.companyname,
             contact:foundCompany.contact,
             companyaddress:foundCompany.companyaddress,
+            country:foundCompany.country,
+            email:foundCompany.email,
+            companywebsite:foundCompany.website,
+            postalcode:foundCompany.postalcode,
             password:foundCompany.password,
             token:generateToken(foundCompany._id),
         });
