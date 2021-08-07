@@ -17,9 +17,33 @@ var storage = multer.diskStorage({
 router.route('/').post(upload.single('myFile'),registerCompany);
 router.route('/login').post(authCompany);
 
+router.patch('/profilepic/:id', upload.single('myFile'), async (req,res) => {
+  try {
+    console.log(req.params.id,req.file.filename);
+   await Company.findByIdAndUpdate(req.params.id, { profile: req.file.filename })
+   .then(async()=>{
+     await Company.findById(req.params.id)
+      .then((companyinfo)=>{
+        console.log(companyinfo);
+        res.json(companyinfo);
+      }).catch((err)=>{
+        res.status(400);
+      });
+
+   }).catch((err)=>{
+     res.status("something went wrong"+400);
+   });
+   
+  } catch (error) {
+   console.log("tried to patch profile"+error);
+  }
+ 
+});
+
 router.route('/update/:id').post((req, res) => {
     Company.findById(req.params.id)
         .then(company => {
+            company.profile = req.body.profile;
             company.companyname = req.body.companyname;
             company.contact = req.body.contact;
             company.companyaddress = req.body.companyaddress;

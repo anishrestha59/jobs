@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+import {Row,Col,Image,ListGroup,Card,Button, Container,Form } from 'react-bootstrap'
+
 
 export default class CreateJobs extends Component {
     constructor(){
@@ -107,84 +110,85 @@ export default class CreateJobs extends Component {
     render() {
         return (
           <div>
+           
+           <Card className='my-5 shadow-lg'>
+            <Card.Body>
+
             <div className="container">
               <div className="form-div">
                 <form onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <label>Jobname: </label>
-                    <input
-                      type="text"
-                      required
-                      className="form-control"
-                      value={this.state.jobname}
-                      onChange={this.changeJobname}
-                    />
-                  </div>
 
-                  <div className="form-group">
-                    <label>Job Type: </label>
-                    <input
-                      type="text"
-                      required
-                      className="form-control"
-                      value={this.state.jobtype}
-                      onChange={this.changeJobType}
-                    />
-                  </div>
-                            <div className="form-group">
+                <Row className="mb-3">
+    <Form.Group as={Col} controlId="formGridjobName">
+      <Form.Label>Job Name</Form.Label>
+      <Form.Control type="text"
+      required 
+      value={this.state.jobname}
+      onChange={this.changeJobname}
+                      onChange={this.changeJobname} placeholder="Enter Job Name" />
+    </Form.Group>
+
+    <Form.Group as={Col} controlId="formGridPassword">
+      <Form.Label>Job Type</Form.Label>
+      <Form.Control type="text"
+      required
+      value={this.state.jobtype}
+        onChange={this.changeJobType}
+       placeholder="Enter Job Type" />
+    </Form.Group>
+    
+  </Row>
+  <div className="form-group">
                                 <label>Job Shift: </label>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio"  value="day" checked={this.state.jobshift === "day"} onChange={this.changeJobShift}  />
-                                    <label class="form-check-label"  >
+                                    <input id="day" class="form-check-input" type="radio"  value="day" checked={this.state.jobshift === "day"} onChange={this.changeJobShift}  />
+                                    <label htmlFor="day" class="form-check-label"  >
                                         Day
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio"  value="night" checked={this.state.jobshift === "night"} onChange={this.changeJobShift}  />
-                                    <label class="form-check-label" >
+                                    <input name="night" id="night" class="form-check-input" type="radio"  value="night" checked={this.state.jobshift === "night"} onChange={this.changeJobShift}  />
+                                    <label htmlFor ="night" class="form-check-label" >
                                         Night
                                     </label>
                                 </div>
                             </div>
-
-                  <div className="form-group">
-                    <label>Salary: </label>
-                    <input
-                      type="Number"
-                      required
-                      className="form-control"
-                      value={this.state.salary}
-                      onChange={this.changeSalary}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Minimum Experience: </label>
-                    <input
-                      type="Number"
+                            <Row className="mb-3">
+    <Form.Group as={Col} controlId="formGridjobName">
+      <Form.Label>Experience</Form.Label>
+      <Form.Control type="Number"
                       required
                       className="form-control"
                       value={this.state.experience}
                       onChange={this.changeExperience}
-                    />
-                  </div>
-                  <div className="text-muted mb-4">
-                            minimum experience to apply in Year
-                        </div>
+      
+                       placeholder="Enter experience in year" />
+    </Form.Group>
+    
 
-                  <div className="form-group">
-                    <label>Description: </label>
-                    <input
-                      type="text"
-                      required
-                      className="form-control"
-                      value={this.state.description}
-                      onChange={this.changeDescription}
-                    />
-                  </div>
+    <Form.Group as={Col} controlId="formGridPassword">
+      <Form.Label>Salary</Form.Label>
+      <Form.Control type="number"
+       required
+       placeholder="Enter Salary" 
+       value={this.state.salary}
+       onChange={this.changeSalary} />
+    </Form.Group>
+    
+  </Row>
+  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+    <Form.Label>Description</Form.Label>
+    <Form.Control 
+    required
+    value={this.state.description}
+    onChange={this.changeDescription}
+    as="textarea"
+    rows={3} />
+  </Form.Group>
 
-                  <div className="form-group">
-                    <label>Pick deadline: </label>
+  <div className="form-group">
+                    <label>Pick deadline </label>
                     <div>
                       <DatePicker
                         selected={this.state.date}
@@ -192,6 +196,7 @@ export default class CreateJobs extends Component {
                       />
                     </div>
                   </div>
+  
 
                   <input
                     type="submit"
@@ -201,6 +206,8 @@ export default class CreateJobs extends Component {
                 </form>
               </div>
             </div>
+            </Card.Body>
+            </Card>
           </div>
         );
     }

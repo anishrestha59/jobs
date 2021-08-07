@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import toast from 'react-toastify';
 import Loading from '../Components/Loading';
 import ErrorMessage from '../Components/ErrorMessage';
+import { Row,Col,Image,ListGroup,Card, Container} from "react-bootstrap";
 
 
 const SignupScreen = () => {
@@ -23,15 +24,26 @@ const SignupScreen = () => {
     const [postalcode, setPostalCode] = useState();
     const [email, setEmail] = useState();
     const [companywebsite, setWebsite] = useState();
+    const [dummyProfilePic, setDummyProfile] = useState();
     
 
     //const [picMessage, setPicMessage] = useState(null);
+useEffect(()=>{
+    setDummyProfile('loginman.png')
+},[])
+
 
     const imageUpload = (event) => {
-          
+            setDummyProfile('');
         setProfilePic(event.target.files[0]);
+
     }
 
+    function checkConfirmPassword(event){
+        if(confirmPassword === event.target.value) setPasswordMatchError(false);
+        else setPasswordMatchError(true);
+    }
+    
     function checkPassword(event) {
 
         if (password === event.target.value) {
@@ -52,7 +64,7 @@ const SignupScreen = () => {
     //     }
     // }
 
-    const submitHandler = async (event) => {
+    const submitHandler = (event) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
@@ -78,7 +90,7 @@ const SignupScreen = () => {
                 formdata.append('password', password)
               
 
-                const {data} = await axios.post("http://localhost:5000/company/",formdata,
+                const {data} = axios.post("http://localhost:5000/company/",formdata,
                     config,
                 )
                 .then((response)=>{
@@ -93,8 +105,8 @@ const SignupScreen = () => {
                     console.log(err);
                 });
                 
-                localStorage.setItem("UserData", JSON.stringify(data));
-                window.location = '/'
+                // localStorage.setItem("UserData", JSON.stringify(data));
+                // window.location = '/'
 
             } catch (error) {
                 setLoading(false);
@@ -115,6 +127,7 @@ const SignupScreen = () => {
     // }
 
 
+
     return (
         <div>
             <div className="container" >
@@ -130,10 +143,22 @@ const SignupScreen = () => {
 
                             <div className="d-flex justify-content-center" style={{ backgroundColor: "#e9ecef" }}>
                                 <h1 className="text-primary display-5">Company Signup</h1>
+                                {dummyProfilePic && 
+                                <img  src={ dummyProfilePic } height='200px' width="150px" />}
+                                {profilePic 
+                                    &&
+                                    <React.Fragment>
+           <Image  src={URL.createObjectURL(profilePic)} 
+            alt={profilePic} rounded  fluid width="150px" height="200" />   
+       
+                  </React.Fragment>
+                  }
                             </div>
 
                             <Form.Group className="mb-3" controlId="formBasicPhone">
-                            <input type="file" reqired className="form-control" name="myFile" onChange={imageUpload} />
+                            <input type="file" reqired className="form-control" name="myFile" 
+                                accept="myFile/png, myFile/jpeg, myFile/jpg" 
+                                onChange={imageUpload} />
                                 <Form.Label>Company Name</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -205,7 +230,7 @@ const SignupScreen = () => {
                                     required
                                     placeholder="Password"
                                     onChange={(event) => setPassword(event.target.value)}
-                                    onInput={checkPassword}
+                                    onInput={checkConfirmPassword}
                                 />
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control

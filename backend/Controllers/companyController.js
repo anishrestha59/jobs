@@ -34,7 +34,7 @@ const registerCompany = asyncHandler(async(req, res) => {
                 companyaddress:newCompany.companyaddress,
                 country:newCompany.country,
                 email:newCompany.email,
-                companywebsite:newCompany.website,
+                companywebsite:newCompany.companywebsite,
                 postalcode:newCompany.postalcode,
                 password:newCompany.password,
                
@@ -44,6 +44,8 @@ const registerCompany = asyncHandler(async(req, res) => {
             throw new Error('error occured!');
         }
 });
+
+
 
 const authCompany = asyncHandler(async(req, res) => {
     const { contact, password } = req.body;
@@ -59,7 +61,7 @@ const authCompany = asyncHandler(async(req, res) => {
             companyaddress:foundCompany.companyaddress,
             country:foundCompany.country,
             email:foundCompany.email,
-            companywebsite:foundCompany.website,
+            companywebsite:foundCompany.companywebsite,
             postalcode:foundCompany.postalcode,
             password:foundCompany.password,
             token:generateToken(foundCompany._id),
@@ -70,6 +72,7 @@ const authCompany = asyncHandler(async(req, res) => {
     }
 
 });
+
 
 
 

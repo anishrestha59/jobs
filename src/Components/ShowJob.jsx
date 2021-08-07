@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import {Link} from 'react-router-dom'
-import {Row,Col,Image,ListGroup,Card,Button, Container} from 'react-bootstrap'
+import {Link} from 'react-router-dom';
+import {Row,Col,Image,ListGroup,Card,Button, Container} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faBuilding} from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 
 

@@ -6,19 +6,19 @@ const Seekers= (props) =>{
     const appliedid = props.seekers['appliedid']
     return (
         <tr>
-            <td><img className="rounded-circle" 
-            src={`/${props.seekers['profile']}`} 
-            width="40" height="35" 
-            alt={props.seekers['profile']} 
+            <td><img className="rounded-circle"
+                src={`/${props.seekers['profile']}`}
+                width="40" height="35"
+                alt={props.seekers['profile']}
             /> </td>
             <td>{props.seekers['seekername']}</td>
             <td>{props.seekers['skills']}</td>
             <td>{props.seekers['age']}</td>
             <td>
-            <button name={appliedid} id="showseeker" style= { { backgroundColor: "Green", margin: "5px" } } onClick={ props.handleButton }><FontAwesomeIcon icon ={ faCheck } />View Seeker</button>
-                
-                <button name={appliedid} id ="accept" style= { { backgroundColor: "Green", margin: "5px" } } onClick={ props.handleButton }><FontAwesomeIcon icon ={ faCheck } /></button>
-                <button name={appliedid} id ="reject" style= { { backgroundColor: "Red" } }  onClick={ props.handleButton }><FontAwesomeIcon icon = { faTimes } /></button>
+                <button name={appliedid} id="showseeker" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} />View Seeker</button>
+
+                <button name={appliedid} id="accept" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} /></button>
+                <button name={appliedid} id="reject" style={{ backgroundColor: "Red" }} onClick={props.handleButton}><FontAwesomeIcon icon={faTimes} /></button>
 
             </td>
         </tr>

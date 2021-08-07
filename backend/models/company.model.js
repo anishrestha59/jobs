@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 const bcrypt = require('bcryptjs');
 
 const Schema = mongoose.Schema;
@@ -6,6 +7,7 @@ const Schema = mongoose.Schema;
 const companySchema = new Schema({
     profile:{
         type: String
+   
     },
     companyname:{
         type: String,
@@ -32,7 +34,7 @@ const companySchema = new Schema({
         type: String
     },
     postalcode:{
-        typre: String
+        type: String
     },
     password:{
         type: String,
