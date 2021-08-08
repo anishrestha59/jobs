@@ -12,10 +12,10 @@ class newJobs extends Component {
   }
 
   componentDidMount() {
-    console.log('is this running');
+  
     axios.get("http://localhost:5000/jobs/")
       .then((response) => {
-        console.log(response)
+       
         this.setState({ jobs: response.data });
       })
       .catch((err) => {
@@ -25,6 +25,8 @@ class newJobs extends Component {
 
   render() {
     const { jobs } = this.state;
+    
+    
     return (
       <React.Fragment>
         <div>

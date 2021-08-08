@@ -9,6 +9,10 @@ import { paginate } from "../utils/paginate";
 import ListGroup from "./Common/listGroup";
 import NewJobsList from './Designedmodeljoblist/NewJobsList';
 import _ from "lodash";
+import Header from './Header';
+
+
+
 
 
 const Jobs = (props) => {
@@ -57,31 +61,36 @@ export default class JobsList extends Component {
   constructor() {
     super();
 
-    this.deleteJobs = this.deleteJobs.bind(this);
-
     this.state = {
       currentPage: 1,
       pageSize: 7,
       selectedJobType: "",
+      showNewJobs: true,
       jobTypes: [
         "All Jobs",
         "Technician",
         "Medical",
-        "Engineer",
-        "Security",
-        "Helper",
-        "Delivery",
-        "Manager",
-        "Sales",
+        "Engineer"
       ],
       jobs: [],
       userData: {},
       selectedJob: "",
       sortColumn: { path: "title", order: "asc" },
-      showNewJobs: false,
+      
     };
   }
   componentDidMount() {
+    let showNewJobs = localStorage.getItem("showNewJobs")
+    if(showNewJobs === "true"){
+      this.setState({
+        showNewJobs: true
+      })
+    }
+      else if(showNewJobs === "false"){
+        this.setState({
+          showNewJobs:false
+        })
+      }
     axios
       .get("http://localhost:5000/jobs/")
       .then((response) => {
@@ -90,42 +99,29 @@ export default class JobsList extends Component {
       .catch((err) => {
         console.log(err);
       });
+      
 
     let userData = localStorage.getItem("UserData");
+    
     let parsedData = JSON.parse(userData); //converting string json to object
-
+     
     this.setState({
       userData: parsedData,
     });
+
+    
   }
 
 
-  handleApply = (jobsId) => {
-    this.setState({
-      selectedJob: jobsId,
-    });
-    return "apply";
-  };
-
-  deleteJobs(id) {
-    axios
-      .delete("http://localhost:5000/jobs/" + id)
-      .then((response) => console.log(response.data));
-
-    this.setState({
-      jobs: this.state.jobs.filter((element) => element._id !== id),
-    });
-  }
 
   jobsList() {
-    console.log(this.state.jobs);
+   
     return this.state.jobs.map((currentJobs) => {
       return (
         <Jobs
           jobs={currentJobs}
           userData={this.state.userData}
-          handleApply={this.handleApply}
-          deleteJobs={this.deleteJobs}
+          
           key={currentJobs._id}
         />
       );
@@ -151,7 +147,12 @@ export default class JobsList extends Component {
     this.setState({ sortColumn });
   };
 
-  
+  toggleNewJobs = (e) =>{
+
+    this.setState({showNewJobs:e.target.checked})
+    localStorage.setItem("showNewJobs", JSON.stringify(e.target.checked));
+  }
+
   render() {
     const {
       currentPage,
@@ -170,26 +171,48 @@ export default class JobsList extends Component {
     
     
     return (
+      <React.Fragment>
       <div className="row">
         <div className="col-2">
           <ListGroup
             items={this.state.jobTypes}
             selectedItem={this.state.selectedJobType}
             onItemSelect={this.selectJobType}
+  
           />
-          <div className="form-check form-switch">
-            <input 
 
-id="flexSwitchCheckDefault" 
-className="form-check-input"  
-type="checkbox" 
 
-              
-              />
-            
-            <label className="form-check-label"
-               htmlFor="flexSwitchCheckDefault">Show new jobs</label>
-          </div>
+
+
+   {/* toggle the show new jobs herererererererere */}
+{this.state.showNewJobs &&
+   <div className="form-check form-switch" >
+
+  <input className="form-check-input" 
+    type="checkbox" 
+    defaultChecked="true"
+    id="flexSwitchCheckChecked" 
+    onClick={this.toggleNewJobs}
+  />
+  <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Show New Jobs</label>
+</div>
+}
+{!this.state.showNewJobs && 
+   <div className="form-check form-switch" >
+
+   <input className="form-check-input" 
+     type="checkbox" 
+     defaultChecked=""
+     id="flexSwitchCheckChecked" 
+     onClick={this.toggleNewJobs}
+   />
+   <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Show New Jobs</label>
+ </div>
+ 
+  
+
+  }
+
 
         </div>
         <div className="col">
@@ -212,8 +235,7 @@ type="checkbox"
                   <Jobs
                     jobs={currentJobs}
                     userData={this.state.userData}
-                    handleApply={this.handleApply}
-                    deleteJobs={this.deleteJobs}
+          
                     key={currentJobs._id}
                   />
                 );
@@ -229,12 +251,21 @@ type="checkbox"
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
-        
-        <b>New Jobs</b>
-        <NewJobsList />
+
+
+          
+          {this.state.showNewJobs &&
+            <React.Fragment>
+              <b>New Jobs</b>
+
+              <NewJobsList />
+            </React.Fragment>
+          }
+       
         </div>
         
       </div>
+      </React.Fragment>
     );
   }
 }
