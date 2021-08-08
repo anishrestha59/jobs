@@ -53,9 +53,22 @@ export default class UserProfile extends Component {
       const formdata = new FormData();
       formdata.append('myFile',e.target.files[0],e.target.files[0].name);
        await axios.patch("http://localhost:5000/company/profilepic/"+this.state.userid,formdata)
-       .then((companyinfo) =>{
-         console.log(companyinfo);
+       .then((response) =>{
+         toast.success('Profile Pic updated');
+        localStorage.setItem("UserData", JSON.stringify(response.data));
+        this.setState({
+          profile: response.data.profile,
+          userid: response.data._id,
+          companyname: response.data.companyname,
+          contact: response.data.contact,
+          companyaddress: response.data.companyaddress,
+          country: response.data.country,
+          email: response.data.email,
+          companywebsite: response.data.companywebsite,
+          postalcode: response.data.postalcode
+        });
        }).catch((err)=>{
+         toast.error('Profile Pic not updated')
          console.log(err);
        })
       //this.setState({ profile });
@@ -155,6 +168,8 @@ export default class UserProfile extends Component {
         .then((res) => {
           updatedData = res.data;
           toast.success("Profile updated");
+          
+
         }).catch((err) => {
           toast.error('Not updated')
           console.log(err)
