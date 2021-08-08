@@ -7,7 +7,9 @@ import { faCoffee, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "./pagination/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./Common/listGroup";
+import NewJobsList from './Designedmodeljoblist/NewJobsList';
 import _ from "lodash";
+
 
 const Jobs = (props) => {
   let user = props.userData;
@@ -28,7 +30,7 @@ const Jobs = (props) => {
       <td>
         {!user && (
           <>
-            <button type="button" class="btn btn-primary">
+            <button type="button" className="btn btn-primary">
               {" "}
               Apply <FontAwesomeIcon icon={faCoffee} />
             </button>
@@ -76,6 +78,7 @@ export default class JobsList extends Component {
       userData: {},
       selectedJob: "",
       sortColumn: { path: "title", order: "asc" },
+      showNewJobs: false,
     };
   }
   componentDidMount() {
@@ -95,6 +98,7 @@ export default class JobsList extends Component {
       userData: parsedData,
     });
   }
+
 
   handleApply = (jobsId) => {
     this.setState({
@@ -147,6 +151,7 @@ export default class JobsList extends Component {
     this.setState({ sortColumn });
   };
 
+  
   render() {
     const {
       currentPage,
@@ -162,6 +167,8 @@ export default class JobsList extends Component {
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const jobs = paginate(sorted, currentPage, pageSize);
+    
+    
     return (
       <div className="row">
         <div className="col-2">
@@ -170,6 +177,20 @@ export default class JobsList extends Component {
             selectedItem={this.state.selectedJobType}
             onItemSelect={this.selectJobType}
           />
+          <div className="form-check form-switch">
+            <input 
+
+id="flexSwitchCheckDefault" 
+className="form-check-input"  
+type="checkbox" 
+
+              
+              />
+            
+            <label className="form-check-label"
+               htmlFor="flexSwitchCheckDefault">Show new jobs</label>
+          </div>
+
         </div>
         <div className="col">
           <h4> Jobs:</h4>
@@ -180,7 +201,9 @@ export default class JobsList extends Component {
                 <th onClick={() => this.handleSort("jobname")}>Jobname:</th>
                 <th>Description:</th>
                 <th onClick={() => this.handleSort("deadline")}>Deadline:</th>
-                <th>Actions:</th>
+                {this.state.userData && this.state.userData['seekername'] && <th>Actions:</th>}
+                {!this.state.userData && <th>Actions:</th>}
+              
               </tr>
             </thead>
             <tbody>
@@ -206,7 +229,11 @@ export default class JobsList extends Component {
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
+        
+        <b>New Jobs</b>
+        <NewJobsList />
         </div>
+        
       </div>
     );
   }

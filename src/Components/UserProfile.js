@@ -181,17 +181,10 @@ export default class UserProfile extends Component {
       }
 
   }
-  handleEditPicture = () => {
-
-  }
 
   render() {
     return (
       
-
-
-
-
 
       
       <div>

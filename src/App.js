@@ -29,7 +29,8 @@ import './App.css';
 
 export default class App extends Component {
 
-  state={};
+  state={
+  };
 
   componentDidMount() {
   
@@ -63,9 +64,10 @@ export default class App extends Component {
             <Route path = "/job/:id" component = { ShowJob }/>
             <Route path = "/jobs/appliedjobs" component = { AppliedJobs }/>
             <Route path = "/jobs/appliedseekers/:id" component = { AppliedSeekers }/>
-            <Route path = "/showseeker/:id" render = { (props) =><ShowSeeker {...props} /> } 
-             component = { ShowSeeker}/>
-
+            <Route path = "/showseeker/:id" component = { ShowSeeker }/>
+            {/* render = { (props) =><ShowSeeker {...props} /> } */}
+            
+            
             </Container>
            </main>
             

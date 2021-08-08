@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 import Loading from '../Components/Loading';
 import ErrorMessage from '../Components/ErrorMessage';
+import { Image } from 'react-bootstrap';
 
 
 const SeekerSignupScreen = () => {
@@ -25,12 +26,16 @@ const SeekerSignupScreen = () => {
     const [loading, setLoading] = useState(false);
     const [profilePic, setProfilePic] = useState();
     const [passwordMatchError, setPasswordMatchError] = useState(false);
+    const [dummyProfilePic, setDummyProfile] = useState();
     //const [picMessage, setPicMessage] = useState(null);
 
 
+    useEffect(()=>{
+        setDummyProfile('loginman.png')
+    },[]);
 
     const imageUpload = (event) => {
-       
+        setDummyProfile('');
         setProfilePic(event.target.files[0]);
     }
 
@@ -84,10 +89,9 @@ const SeekerSignupScreen = () => {
 
 
             } catch (error) {
-                // setErrorBack(error.response.data.message);
-                
+                // setErrorBack(error.response.data.message); 
                 setLoading(false);
-                toast.error('user already exist');
+               
             }
         }
 
@@ -119,12 +123,9 @@ console.log(event)
             <div className="container" >
 
                 <div className="py-5" style={{ backgroundColor: "#e9ecef" }}>
-                    <div className="py-3 mx-auto justify-content-center bg-light col-xl-5 col-lg-4 col-md-5 col-sm-6 col-12 ">
-
-
-                       
                         {errorBack && <ErrorMessage variant="danger">{errorBack}</ErrorMessage>}
                         {loading && <Loading />}
+                    <div className="py-3 mx-auto justify-content-center bg-light col-xl-5 col-lg-4 col-md-5 col-sm-6 col-12 ">
                         <Form onSubmit={submitHandler}>
 
                             <div className="d-flex justify-content-center" style={{ backgroundColor: "#e9ecef" }}>
@@ -132,6 +133,15 @@ console.log(event)
                             </div>
 
 
+                    {dummyProfilePic && 
+                                <img  src={ dummyProfilePic } height='200px' width="150px" />}
+                                {profilePic 
+                                    &&
+                                    <React.Fragment>
+           <Image  src={URL.createObjectURL(profilePic)} 
+            alt={profilePic} rounded  fluid width="150px" height="200" />   
+</React.Fragment>
+        }
                             <Form.Group className="mb-3" controlId="formBasicPhone">
 
                                 <input type="file" className="form-control" name="myFile" onChange={imageUpload} />

@@ -69,7 +69,7 @@ export default class ShowJob extends Component {
       })
   }
 
-  handleApply = () => {
+  handleApply = async () => {
       if(!this.state.alreadyApplied){  
         const applyJob = {
             jobid: this.state.jobId,
@@ -80,7 +80,7 @@ export default class ShowJob extends Component {
 
         // console.log(this.props.history);
         
-    axios.post('http://localhost:5000/appliedjobs/add', applyJob)
+    await axios.post('http://localhost:5000/appliedjobs/add', applyJob)
       .then(response => {
         console.log(response.data);
       })
