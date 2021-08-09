@@ -22,6 +22,9 @@ import ShowJob from './Components/ShowJob';
 import AppliedJobs from './Components/AppliedJobs';
 import AppliedSeekers from './Components/AppliedSeekers';
 import ShowSeeker from './Components/ShowSeeker';
+import SeekerUserProfile from './Components/Seeker/SeekerUserProfile'
+import Admin from './Components/Admin/adminHeader'
+import JobType from './Components/Admin/jobType'
 
 import './App.css';
 
@@ -65,6 +68,9 @@ export default class App extends Component {
             <Route path = "/jobs/appliedjobs" component = { AppliedJobs }/>
             <Route path = "/jobs/appliedseekers/:id" component = { AppliedSeekers }/>
             <Route path = "/showseeker/:id" component = { ShowSeeker }/>
+            <Route path = "/seeker/userprofile/" component = { SeekerUserProfile } />
+            <Route path = "/admin"  component = { Admin } />
+            <Route path =  "/admin/jobtype/" component = { JobType } />
             {/* render = { (props) =><ShowSeeker {...props} /> } */}
             
             

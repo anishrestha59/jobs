@@ -63,15 +63,10 @@ export default class JobsList extends Component {
 
     this.state = {
       currentPage: 1,
-      pageSize: 7,
-      selectedJobType: "",
+      pageSize: 2,
+      selectedJobType: "All Jobs",
       showNewJobs: true,
-      jobTypes: [
-        "All Jobs",
-        "Technician",
-        "Medical",
-        "Engineer"
-      ],
+      jobTypes: [],
       jobs: [],
       userData: {},
       selectedJob: "",
@@ -79,7 +74,7 @@ export default class JobsList extends Component {
       
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     let showNewJobs = localStorage.getItem("showNewJobs")
     if(showNewJobs === "true"){
       this.setState({
@@ -91,7 +86,7 @@ export default class JobsList extends Component {
           showNewJobs:false
         })
       }
-    axios
+    await axios
       .get("http://localhost:5000/jobs/")
       .then((response) => {
         this.setState({ jobs: response.data });
@@ -109,9 +104,18 @@ export default class JobsList extends Component {
       userData: parsedData,
     });
 
-    
+    this.getListItems();
   }
 
+ getListItems = async () =>{
+  
+  await axios.get("http://localhost:5000/jobtypes/")
+    .then((jobtype) =>{
+      let jobtypes = [{"_id":"alljobs", "jobtype":"All Jobs"}, ...jobtype.data]
+      this.setState({jobTypes: jobtypes})
+    })
+    .catch((err)=>console.log(err))
+}
 
 
   jobsList() {
@@ -174,17 +178,7 @@ export default class JobsList extends Component {
       <React.Fragment>
       <div className="row">
         <div className="col-2">
-          <ListGroup
-            items={this.state.jobTypes}
-            selectedItem={this.state.selectedJobType}
-            onItemSelect={this.selectJobType}
-  
-          />
-
-
-
-
-   {/* toggle the show new jobs herererererererere */}
+             {/* toggle the show new jobs herererererererere */}
 {this.state.showNewJobs &&
    <div className="form-check form-switch" >
 
@@ -208,10 +202,18 @@ export default class JobsList extends Component {
    />
    <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Show New Jobs</label>
  </div>
- 
-  
-
   }
+
+          <ListGroup
+            items={this.state.jobTypes}
+            selectedItem={this.state.selectedJobType}
+            onItemSelect={this.selectJobType}
+  
+          />
+
+
+
+
 
 
         </div>

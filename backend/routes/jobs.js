@@ -1,11 +1,13 @@
 const router = require('express').Router();
 let Job = require('../models/jobs.model');
+let JobTypes = require('../models/jobtype.model')
 
 router.route('/').get((req, res) => {
     Job.find()
         .then(jobs => res.json(jobs))
         .catch(err => res.status(400).json('Error' + err));
 });
+
 
 router.route('/myjobs/:id').get((req, res) => {
     Job.find({companyid: req.params.id},(err,jobs=[]) => {
@@ -82,5 +84,10 @@ router.route('/update/:id').post((req, res) => {
         })
         .catch(err => res.status(400).json('Error' + err));
 });
+
+
+
+
+
 
 module.exports = router;

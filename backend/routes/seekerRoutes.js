@@ -17,6 +17,51 @@ var storage = multer.diskStorage({
 router.route('/').post(upload.single('myFile'), registerSeeker);
 router.route('/login').post(authSeeker);
 
+router.patch('/profilepic/:id', upload.single('myFile'), async (req,res) => {
+  try {
+    
+   await Seeker.findByIdAndUpdate(req.params.id, { profile: req.file.filename })
+   .then(async ()=>{
+     await Seeker.findById(req.params.id)
+      .then((seekerinfo)=>{
+        res.json(seekerinfo);
+      }).catch((err)=>{
+        res.status(400);
+      });
+
+   }).catch((err)=>{
+     res.status("something went wrong"+400);
+   });
+   
+  } catch (error) {
+   console.log("tried to patch profile"+error);
+  }
+ 
+});
+
+router.route('/update/:id').post((req, res) => {
+  Seeker.findById(req.params.id)
+      .then(seeker => {
+          seeker.profile = req.body.profile;
+          seeker.seekername = req.body.seekername;
+          seeker.gender = req.body.gender;
+          seeker.seekeraddress = req.body.seekeraddress;
+          seeker.age = req.body.age;
+          seeker.contact = req.body.contact;
+          seeker.skills = req.body.skills;
+          seeker.salary = req.body.salary;
+          seeker.experience = req.body.experience; 
+          seeker.password = req.body.password;
+
+          seeker.save()
+              .then(() => res.json(seeker))
+              .catch(err => res.status(400).json('Error' + err));
+      })
+      .catch(err => res.status(400).json('Error' + err));
+});
+
+
+
 router.route('/:id').get((req, res) => {
     Seeker.findById(req.params.id)
         .then(seekerinfo => res.json(seekerinfo))

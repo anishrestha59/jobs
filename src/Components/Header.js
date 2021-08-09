@@ -71,7 +71,7 @@ export default function Header( {user} ) {
                                 <NavLink className="nav-link" to="/jobs/appliedjobs">Applied Jobs </NavLink>
 
                                 <NavDropdown title={user["seekername"]} id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+                                    <NavDropdown.Item href="/seeker/userprofile/">My Profile</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item
                                         onClick={() => {

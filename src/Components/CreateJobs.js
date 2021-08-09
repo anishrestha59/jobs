@@ -85,21 +85,21 @@ export default class CreateJobs extends Component {
     onSubmit(event){
         event.preventDefault();
 
-        const registered = {
-            companyprofile: this.state.companyprofile,
-            companyname: this.state.companyname,
-            companyid: this.state.companyid,
-            jobname: this.state.jobname,
-            jobtype: this.state.jobtype,
-            jobshift: this.state.jobshift,
-            salary: this.state.salary,
-            experience: this.state.experience,
-            description: this.state.description,
-            date: this.state.date
-        }
-        console.log(registered);
-        axios.post('http://localhost:5000/jobs/add', registered)
-            .then(response => console.log(response.data))
+          const registered = {
+              companyprofile: this.state.companyprofile,
+              companyname: this.state.companyname,
+              companyid: this.state.companyid,
+              jobname: this.state.jobname,
+              jobtype: this.state.jobtype,
+              jobshift: this.state.jobshift,
+              salary: this.state.salary,
+              experience: this.state.experience,
+              description: this.state.description,
+              date: this.state.date
+          }
+          console.log(registered);
+          axios.post('http://localhost:5000/jobs/add', registered)
+              .then(response => console.log(response.data))
 
         
         window.location ='/';
