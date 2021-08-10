@@ -4,19 +4,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import {Row,Col,Image,ListGroup,Card,Button, Container,Form } from 'react-bootstrap'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 
 export default class CreateJobs extends Component {
     constructor(){
         super()
+       
         this.state = {
+          jobtypes:[],
           companyprofile:'',
           companyname:'',
             companyid:'',
             jobname: '',
-            jobtype: '',
+            selectedjobtype:'Others',
             jobshift: 'day',
             salary: '',
+            minsalary:'',
+            maxsalary:'',
+            negotiable: false,
             experience: '',
             description: '',
             date: new Date()
@@ -26,7 +34,8 @@ export default class CreateJobs extends Component {
         this.changeDescription = this.changeDescription.bind(this)
         this.changeDate = this.changeDate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-    }
+       
+      }
     componentDidMount() {
   
       let userData = (localStorage.getItem('UserData'));
@@ -38,8 +47,11 @@ export default class CreateJobs extends Component {
         companyname: parsedData.companyname,
         companyid: parsedData._id
       });
-
     }
+      axios.get('http://localhost:5000/jobtypes')
+      .then((response)=>{
+          this.setState({jobtypes:response.data})
+      }).catch(err=> console.log(err));
 
     }
 
@@ -48,11 +60,6 @@ export default class CreateJobs extends Component {
             jobname:event.target.value
         });
     }
-    changeJobType = (event) =>{
-        this.setState({
-            jobtype:event.target.value
-        });
-    } 
 
     changeJobShift = (event) =>{
         this.setState({
@@ -60,19 +67,48 @@ export default class CreateJobs extends Component {
         });
     }
     changeSalary = (event) =>{
-        this.setState({
-            salary:event.target.value
+  
+      if(event.target.checked === true){  
+      
+      this.setState({
+        minsalary: "",
+        maxsalary:"",    
+        salary:event.target.value,
+
         });
+      }else{
+        this.setState({
+          salary:0
+        })
+      }
     }
+    changeMinSalary = (event) =>{
+      this.setState({
+          minsalary:event.target.value,
+          salary: `${event.target.value} - ${this.state.maxsalary}` 
+      });
+  }
+  changeMaxSalary = (event) =>{
+    
+    this.setState({
+        maxsalary:event.target.value,
+        salary :` ${this.state.minsalary} - ${event.target.value} `
+    });
+}
+
     changeExperience = (event) =>{
         this.setState({
             experience:event.target.value
         });
     }
-    changeDescription(event){
-        this.setState({
-            description: event.target.value
+    changeDescription(event,editor){
+      const data = editor.getData();
+        
+   
+      this.setState({
+            description: data
         });
+        
     }
 
     changeDate(Date) {
@@ -90,7 +126,7 @@ export default class CreateJobs extends Component {
               companyname: this.state.companyname,
               companyid: this.state.companyid,
               jobname: this.state.jobname,
-              jobtype: this.state.jobtype,
+              jobtype: this.state.selectedjobtype,
               jobshift: this.state.jobshift,
               salary: this.state.salary,
               experience: this.state.experience,
@@ -98,14 +134,20 @@ export default class CreateJobs extends Component {
               date: this.state.date
           }
           console.log(registered);
-          axios.post('http://localhost:5000/jobs/add', registered)
-              .then(response => console.log(response.data))
+        //   axios.post('http://localhost:5000/jobs/add', registered)
+        //       .then(response => console.log(response.data))
 
         
-        window.location ='/';
+        // window.location ='/';
             
     }
 
+    handleJobType = (event) => {
+      console.log(event.target.value)
+      this.setState({
+        selectedjobtype:event.target.value
+      })
+    }
 
     render() {
         return (
@@ -130,61 +172,98 @@ export default class CreateJobs extends Component {
 
     <Form.Group as={Col} controlId="formGridPassword">
       <Form.Label>Job Type</Form.Label>
-      <Form.Control type="text"
-      required
-      value={this.state.jobtype}
-        onChange={this.changeJobType}
-       placeholder="Enter Job Type" />
+      <select  onClick={this.handleJobType} className="form-select" aria-label="Default select example">
+                                <option selected>Others</option>
+                                    {
+                                        this.state.jobtypes.map((jobtype) => {
+                                            return (
+                                                <React.Fragment>
+                                                    <option 
+                                                        key={jobtype['_id']}
+                                                        
+                                                        value={jobtype['jobtype']}>
+                                                          
+                                                      {jobtype['jobtype'] }
+                                                                       
+                                                      </option>
+                                                </React.Fragment>
+                                            )
+                                        })
+                                    }
+                                </select>
     </Form.Group>
     
   </Row>
   <div className="form-group">
                                 <label>Job Shift: </label>
 
-                                <div class="form-check">
-                                    <input id="day" class="form-check-input" type="radio"  value="day" checked={this.state.jobshift === "day"} onChange={this.changeJobShift}  />
-                                    <label htmlFor="day" class="form-check-label"  >
+                                <div className="form-check">
+                                    <input id="day" className="form-check-input" type="radio"  value="day" checked={this.state.jobshift === "day"} onChange={this.changeJobShift}  />
+                                    <label htmlFor="day" className="form-check-label"  >
                                         Day
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input name="night" id="night" class="form-check-input" type="radio"  value="night" checked={this.state.jobshift === "night"} onChange={this.changeJobShift}  />
-                                    <label htmlFor ="night" class="form-check-label" >
+                                <div className="form-check">
+                                    <input name="night" id="night" className="form-check-input" type="radio"  value="night" checked={this.state.jobshift === "night"} onChange={this.changeJobShift}  />
+                                    <label htmlFor ="night" className="form-check-label" >
                                         Night
                                     </label>
                                 </div>
                             </div>
                             <Row className="mb-3">
-    <Form.Group as={Col} controlId="formGridjobName">
-      <Form.Label>Experience</Form.Label>
-      <Form.Control type="Number"
-                      required
-                      className="form-control"
-                      value={this.state.experience}
-                      onChange={this.changeExperience}
-      
-                       placeholder="Enter experience in year" />
-    </Form.Group>
-    
+                        <Form.Group as={Col} controlId="formGridjobName">
+                          <Form.Label>Needed experience</Form.Label>
+                          <Form.Control type="Number"
+                            required
+                            className="form-control"
+                            value={this.state.experience}
+                            onChange={this.changeExperience}
 
-    <Form.Group as={Col} controlId="formGridPassword">
-      <Form.Label>Salary</Form.Label>
-      <Form.Control type="number"
-       required
-       placeholder="Enter Salary" 
-       value={this.state.salary}
-       onChange={this.changeSalary} />
-    </Form.Group>
-    
+                            placeholder="Enter experience in year" />
+                        </Form.Group>
+
+
+                        <Form.Group as={Col} controlId="formGridPassword">
+                          <Form.Label>Salary</Form.Label>
+                          <div className='row'>
+                            {!(this.state.salary === 'negotiable') && 
+
+                            <React.Fragment>
+                            <div className='col'>
+                              <Form.Control type="number"
+                               
+                                placeholder="Enter min salary"
+                                value={this.state.minsalary}
+                                onChange={this.changeMinSalary} />
+                              
+                              
+                             
+                            </div> 
+                            -
+                            <div className='col'>
+                              <Form.Control type="number"
+                               
+                                placeholder="Enter max salary"
+                                value={this.state.maxsalary}
+                                onChange={this.changeMaxSalary} />
+                            </div>
+                            </React.Fragment>
+    }
+                            <div className="form-check">
+                                <input onClick={this.changeSalary} className="form-check-input" type="checkbox" value="negotiable" id="flexCheckDefault" />
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                  Negotiable
+                                </label>
+                              </div>
+
+                          </div>
+                        </Form.Group>
   </Row>
   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-    <Form.Label>Description</Form.Label>
-    <Form.Control 
-    required
-    value={this.state.description}
-    onChange={this.changeDescription}
-    as="textarea"
-    rows={3} />
+    <Form.Label>Job Description</Form.Label>
+   
+
+    <CKEditor editor={ClassicEditor} data={this.state.description} onChange={this.changeDescription} />
   </Form.Group>
 
   <div className="form-group">

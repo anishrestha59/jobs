@@ -220,14 +220,17 @@ const SeekerSignupScreen = () => {
                                 <Form.Label>Skills</Form.Label>
 
 
-                                <select className="form-select" aria-label="Default select example">
+                                <select onClick={(e) =>{
+                                  
+                             setSelectedJobType(e.target.value)}
+                                         } className="form-select" aria-label="Default select example">
                                 <option selected>Others</option>
                                     {
                                         jobtype.map((jobtype) => {
                                             return (
                                                 <React.Fragment>
-                                                    <option onClick={(e) => setSelectedJobType(e.target.value)}
-                                                        key={jobtype['_id']}
+                                                    <option 
+                                                    key={jobtype['_id']}
                                                         value={jobtype['jobtype']}
                                                     >{jobtype['jobtype']}</option>
                                                 </React.Fragment>

@@ -39,6 +39,9 @@ const seekerSchema = new Schema({
     education:{
         type: String,
     },
+    bestat:{
+        type:String
+    },
     salary:{
         type: Number,
         required:true

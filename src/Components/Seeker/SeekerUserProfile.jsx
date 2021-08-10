@@ -26,6 +26,7 @@ export default class UserProfile extends Component {
       currentskill: "",
       resume:"",
       education:"",
+      bestat:"",
       salary: "",
       password: "",
     };
@@ -49,6 +50,7 @@ export default class UserProfile extends Component {
         currentskill: parsedData.currentskill,
         resume: parsedData.resume,
         education: parsedData.education,
+        bestat: parsedData.bestat,
         salary: parsedData.salary
       });
     } 
@@ -76,6 +78,7 @@ export default class UserProfile extends Component {
           currentskill: response.data.currentskill,
           resume: response.data.resume,
           education: response.data.education,
+          bestat: response.data.bestat,
           salary: response.data.salary
         });
        }).catch((err)=>{
@@ -123,6 +126,11 @@ export default class UserProfile extends Component {
   setEducation = (event) =>{
     this.setState({
       education: event.target.value
+    })
+  }
+  setBestAt = (event) =>{
+    this.setState({
+      bestat: event.target.value
     })
   }
 
@@ -178,6 +186,7 @@ export default class UserProfile extends Component {
         currentskill: this.state.currentskill,
         resume: this.state.resume,
         education: this.state.education,
+        bestat: this.state.bestat,
         salary: this.state.salary,
         experience: this.state.experience,
         password
@@ -298,11 +307,11 @@ export default class UserProfile extends Component {
                 placeholder="Enter Address"
                 onChange={ this.setSeekerAddress }
               />
-               <Form.Label>gender</Form.Label>
+               <Form.Label>Gender</Form.Label>
               <Form.Control
                 type="text"
                 value={this.state.gender}
-                placeholder="Enter gender"
+                placeholder="Enter Gender"
                 onChange={ this.setGender }
               />
                <Form.Label>Experience</Form.Label>
@@ -320,10 +329,17 @@ export default class UserProfile extends Component {
                 placeholder="Skills  "
                 onChange={ this.setSkills }
               />
+                      <Form.Label>Best at</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.state.bestat}
+                placeholder="Best at  "
+                onChange={ this.setBestAt }
+              />
 <Form.Label>Resume link:</Form.Label>
               <Form.Control
                 type="text"
-                value={this.state.currentskill}
+                value={this.state.resume}
                 placeholder="Resume link:  "
                 onChange={ this.setResume }
               />
@@ -331,7 +347,7 @@ export default class UserProfile extends Component {
 <Form.Label>Education</Form.Label>
               <Form.Control
                 type="text"
-                value={this.state.currentskill}
+                value={this.state.education}
                 placeholder="Highest education achieved "
                 onChange={ this.setEducation }
               />

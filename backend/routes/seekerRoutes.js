@@ -51,6 +51,7 @@ router.route('/update/:id').post((req, res) => {
           seeker.currentskill = req.body.currentskill;
           seeker.resume = req.body.resume;
           seeker.education = req.body.education;
+          seeker.bestat = req.body.bestat;
           seeker.salary = req.body.salary;
           seeker.experience = req.body.experience; 
           seeker.password = req.body.password;
