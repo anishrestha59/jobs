@@ -13,11 +13,10 @@ const SeekerSignupScreen = () => {
     const [jobtype, setJobType] = useState([]);
     const [selectedjobtype, setSelectedJobType] = useState('Others')
     const [seekername, setSeekerName] = useState("");
-    const [gender, setGender] = useState("");
+    const [gender, setGender] = useState("Male");
     const [seekeraddress, setAddress] = useState("");
     const [age, setAge] = useState("");
     const [contact, setContact] = useState("");
-    const [currentskill, setSkills] = useState("");
     const [resume, setResume] = useState("");
     const [education, setEducation] = useState("");
     const [bestat, setBestAt] = useState("");
@@ -222,6 +221,7 @@ const SeekerSignupScreen = () => {
 
 
                                 <select className="form-select" aria-label="Default select example">
+                                <option selected>Others</option>
                                     {
                                         jobtype.map((jobtype) => {
                                             return (
