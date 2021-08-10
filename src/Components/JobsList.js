@@ -29,7 +29,7 @@ const Jobs = (props) => {
         />
       </td>
       <td>{props.jobs.jobname}</td>
-      <td>{props.jobs.description}</td>
+      <td>{props.jobs.jobtype}</td>
       <td>{props.jobs.date.substring(0, 10)}</td>
       <td>
         {!user && (

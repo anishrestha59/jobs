@@ -29,6 +29,7 @@ const appliedJobsRouter = require('./routes/appliedjob');
 const companyRouter = require('./routes/company');
 const seekerRouter = require('./routes/seekerRoutes');
 const jobtypeRouter = require('./routes/jobtype');
+const viewsRouter = require('./routes/View.routes')
 
 
 app.use('/jobtypes', jobtypeRouter);
@@ -37,6 +38,7 @@ app.use('/appliedjobs', appliedJobsRouter);
 //app.use('/users', usersRouter);
 app.use('/company',companyRouter);
 app.use('/seeker',seekerRouter);
+app.use('/views', viewsRouter)
 
 
  

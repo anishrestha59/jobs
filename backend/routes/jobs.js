@@ -25,10 +25,13 @@ router.route('/add').post((req, res) => {
     const companyid = req.body.companyid;
     const jobname = req.body.jobname;
     const jobtype = req.body.jobtype;
+    const gender = req.body.gender;
     const jobshift = req.body.jobshift;
     const salary = req.body.salary;
     const experience = req.body.experience;
     const description = req.body.description;
+    const employementtype = req.body.employementtype;
+    const vacancynumber = req.body.vacancynumber;
     const date = Date.parse(req.body.date);
 
     const newJobs = new Job({
@@ -37,10 +40,13 @@ router.route('/add').post((req, res) => {
         companyid,
         jobname,
         jobtype,
+        gender,
         jobshift,
         salary,
         experience,
         description,
+        employementtype,
+        vacancynumber,
         date
     });
 
@@ -72,10 +78,13 @@ router.route('/update/:id').post((req, res) => {
             jobs.companyid = req.body.companyid;
             jobs.jobname = req.body.jobname;
             jobs.jobtype = req.body.jobtype;
+            jobs.gender = req.body.gender;
             jobs.jobshift = req.body.jobshift;
             jobs.salary = req.body.salary;
             jobs.experience = req.body.experience;
             jobs.description = req.body.description;
+            jobs.employementtype = req.body.employementtype;
+            jobs.vacancynumber = req.body.vacancynumber;
             jobs.date = Date.parse(req.body.date);
 
             jobs.save()

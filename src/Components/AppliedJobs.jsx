@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 
 
@@ -7,13 +8,38 @@ import { NavLink, Link, useHistory } from 'react-router-dom';
 
 const Jobs= (props) =>{
     let user = props.userData;
+
+    const messageColor = ()=>{
+        if(props.jobs['message']==="wait"){
+            return "text-info";
+        }
+        else if(props.jobs['message']==="rejected"){
+            return "text-danger";
+        }
+        else{
+            return "text-success";
+        }
+    }
+    const message = ()=>{
+        if(props.jobs['message']==="wait"){
+            return "WAIT";
+        }
+        else if(props.jobs['message']==="rejected"){
+            return "REJECTED";
+        }
+        else{
+            return props.jobs['message'];
+        }
+    }
     return (
         <tr>
             <td>{props.jobs['jobname']}</td>
-            <td>{props.jobs['description']}</td>
+            <td>{props.jobs['companyname']}</td>
+            <td>{props.jobs.appliedat.substring(0, 10)}</td>
             <td>{props.jobs.date.substring(0, 10)}</td>
-            <td>
-               {props.jobs['message']}
+               
+            <td className={messageColor()}>
+               <Button> {message()}</Button>
             </td>
         </tr>
 
@@ -55,7 +81,7 @@ class AppliedJobs extends Component {
 
         const jobslist = await  allDetails.map((job) => { 
             let obj;
-            obj = {'jobid': job.jobid, 'appliedid': job._id, 'message':job.message}
+            obj = {'jobid': job.jobid, 'appliedid': job._id,'appliedat': job.createdAt, 'message':job.message}
             return(obj); 
         });
         
@@ -72,7 +98,7 @@ class AppliedJobs extends Component {
              axios.get(`http://localhost:5000/jobs/${appliedinfo['jobid']}`)
              .then(response => {
             //    jobs.push(response.data);
-            const obj = Object.assign(response.data, { appliedid: appliedinfo['appliedid'] }, { 'message': appliedinfo['message'] })
+            const obj = Object.assign(response.data,  {appliedid: appliedinfo['appliedid']} ,{ appliedat: appliedinfo['appliedat']}, { 'message': appliedinfo['message'] })
             console.log(obj);
             jobs = [...this.state.jobs, obj];
             this.setState({ jobs });
@@ -112,8 +138,9 @@ class AppliedJobs extends Component {
                         <thead className="thead-light">
                             <tr>
                                 <th>Jobname:</th>
-                                <th>Description:</th>
-                                <th>Applied In:</th>
+                                <th>Company Name:</th>
+                                <th>Applied At:</th>
+                                <th>Deadline:</th>
                                 <th>Status:</th>
                             </tr>
                         </thead>

@@ -19,6 +19,9 @@ const jobSchema = new Schema({
         type: String,
         required: true,
     },
+    gender:{
+        type: String,
+    },
     jobshift: {
         type: String,
         required: true,
@@ -34,6 +37,13 @@ const jobSchema = new Schema({
     description: {
         type: String,
         required: true
+    },
+    employementtype:{
+        type: String,
+
+    },
+    vacancynumber:{
+        type: Number
     },
     date: {
         type: Date,

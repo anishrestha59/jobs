@@ -14,7 +14,9 @@ export default class ShowJob extends Component {
     jobDetail: {},
     jobId: "",
     companyDetails: {},
-    alreadyApplied: false
+    alreadyApplied: false,
+    alreadyViewed: false,
+    viewCount:'',
   };
 
  async componentDidMount() {
@@ -38,7 +40,45 @@ export default class ShowJob extends Component {
         console.log(err,"this is err")
       })
       this.getCompanyData(jobDetail.companyid);
-      this.checkAlreadyApplied(jobId, parsedData._id )
+      this.checkAlreadyApplied(jobId, parsedData._id );
+      this.checkViews(jobId, parsedData._id);
+      this.countViews(jobId);
+        
+  }
+countViews= async (jobid) => {
+  await axios.get(`http://localhost:5000/views/countviews/${jobid}`)
+  .then((response)=>{
+      this.setState({ viewCount: response.data.length });
+    
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
+  checkViews = async (jobid, seekerid)=>{
+    await axios.get(`http://localhost:5000/views/checkviewedjobs/${jobid}/${seekerid}`)
+    .then((response)=>{
+      if(response.data.length === 0 ){
+        console.log("this job is not viewed")
+        this.setView(jobid, seekerid)
+        this.setState({ alreadyViewed: false });
+      }else{
+        console.log("already viewed")
+
+      }
+    
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+  setView = async (jobid, seekerid)=>{
+    await axios.post(`http://localhost:5000/views/add/${jobid}/${seekerid}`)
+    .then((response)=>{
+      console.log('view set');
+
+    }).catch((err)=>{
+      console.log(err+'error occured while setting view');
+    })
   }
 
 
@@ -53,8 +93,8 @@ export default class ShowJob extends Component {
       
   };
 
-  checkAlreadyApplied = (jobid, seekerid) => {
-    axios.get(`http://localhost:5000/appliedjobs/checkappliedjob/${jobid}/${seekerid}`)
+  checkAlreadyApplied = async (jobid, seekerid) => {
+    await axios.get(`http://localhost:5000/appliedjobs/checkappliedjob/${jobid}/${seekerid}`)
       .then((response)=>{
         if(response.data.length === 0 ){
           console.log("yeah there are no applied jobs")
@@ -82,7 +122,8 @@ export default class ShowJob extends Component {
         
     await axios.post('http://localhost:5000/appliedjobs/add', applyJob)
       .then(response => {
-        console.log(response.data);
+      
+        toast.success('Job applied');
       })
       .catch(err => {
         toast.error("already saved");
@@ -95,8 +136,7 @@ export default class ShowJob extends Component {
 }
             
   render() {
-    let Company = this.state.companyDetails;
-    let Job = this.state.jobDetail;
+    
 
     const { alreadyApplied } = this.state;
     return (
@@ -104,6 +144,7 @@ export default class ShowJob extends Component {
         <Link className='btn btn-dark my-3' to='/'>
                 GO Back
         </Link>
+        <b>Total Views: {this.state.viewCount}</b>
         <Row>
           <Col md={6} >
             {console.log(this.state.companyDetails)}
