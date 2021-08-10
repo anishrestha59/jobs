@@ -4,7 +4,7 @@ const generateToken = require('../utils/generateToken');
 
 const registerSeeker = asyncHandler(async(req, res) => {
     //const { profile } = (req.file) ? req.file.filename : null;
-    const {seekername, gender, seekeraddress, age, contact, skills, salary, experience, password } = req.body;
+    const {seekername, gender, seekeraddress, age, contact, currentskill, resume, education, salary, experience, password } = req.body;
     const profile = req.file.filename;
     
     console.log(req.file)
@@ -22,7 +22,9 @@ const registerSeeker = asyncHandler(async(req, res) => {
             seekeraddress, 
             age, 
             contact, 
-            skills, 
+            currentskill,
+            resume,
+            education, 
             salary, 
             experience, 
             password,
@@ -37,7 +39,9 @@ const registerSeeker = asyncHandler(async(req, res) => {
                 seekeraddress:newSeeker.seekeraddress,
                 age:newSeeker.age,
                 contact:newSeeker.contact,
-                skills:newSeeker.skills,
+                currentskill:newSeeker.currentskill,
+                resume:newSeeker.resume,
+                education:newSeeker.education,
                 salary:newSeeker.salary,
                 experience:newSeeker.experience,
                 password:newSeeker.password,
@@ -63,7 +67,9 @@ const authSeeker = asyncHandler(async(req, res) => {
             seekeraddress:foundSeeker.seekeraddress,
             age:foundSeeker.age,
             contact:foundSeeker.contact,
-            skills:foundSeeker.skills,
+            currentskill:foundSeeker.currentskill,
+            resume:foundSeeker.resume,
+            education:foundSeeker.education,
             salary:foundSeeker.salary,
             experience:foundSeeker.experience,
             password:foundSeeker.password,

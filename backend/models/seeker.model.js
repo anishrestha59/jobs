@@ -29,9 +29,15 @@ const seekerSchema = new Schema({
         required: true,
         unique: true
     },
-    skills:{
+    currentskill:{
         type: String,
         required: true
+    },
+    resume:{
+        type: String,
+    },
+    education:{
+        type: String,
     },
     salary:{
         type: Number,

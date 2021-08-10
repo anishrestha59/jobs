@@ -24,7 +24,7 @@ const ListGroup = (props) => {
 
                 {length > 12 &&
                     <React.Fragment>
-                        <li className="list-group-item">See all</li>
+                        <li className="list-group-item" >See all</li>
                     </React.Fragment>}
 
 

@@ -125,7 +125,6 @@ export default class JobsList extends Component {
         <Jobs
           jobs={currentJobs}
           userData={this.state.userData}
-          
           key={currentJobs._id}
         />
       );

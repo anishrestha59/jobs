@@ -23,7 +23,9 @@ export default class UserProfile extends Component {
       email: "",
       experience:"",
       age:"",
-      skills: "",
+      currentskill: "",
+      resume:"",
+      education:"",
       salary: "",
       password: "",
     };
@@ -44,8 +46,9 @@ export default class UserProfile extends Component {
         gender: parsedData.gender,
         age: parsedData.age,
         experience: parsedData.experience,
-        email: parsedData.email,
-        skills: parsedData.skills,
+        currentskill: parsedData.currentskill,
+        resume: parsedData.resume,
+        education: parsedData.education,
         salary: parsedData.salary
       });
     } 
@@ -70,8 +73,9 @@ export default class UserProfile extends Component {
           age: response.data.age,
           experience: response.data.experience,
           gender: response.data.gender,
-          email: response.data.email,
-          skills: response.data.skills,
+          currentskill: response.data.currentskill,
+          resume: response.data.resume,
+          education: response.data.education,
           salary: response.data.salary
         });
        }).catch((err)=>{
@@ -106,8 +110,20 @@ export default class UserProfile extends Component {
   
   setSkills = (event) =>{
     this.setState({
-      skills: event.target.value
+      currentskill: event.target.value
     });
+  }
+
+  setResume = (event) =>{
+    this.setState({
+      resume: event.target.value
+    })
+  }
+
+  setEducation = (event) =>{
+    this.setState({
+      education: event.target.value
+    })
   }
 
   setSalary = (event) =>{
@@ -159,7 +175,9 @@ export default class UserProfile extends Component {
         seekeraddress: this.state.seekeraddress,
         age: this.state.age,
         contact,
-        skills: this.state.skills,
+        currentskill: this.state.currentskill,
+        resume: this.state.resume,
+        education: this.state.education,
         salary: this.state.salary,
         experience: this.state.experience,
         password
@@ -298,10 +316,26 @@ export default class UserProfile extends Component {
                <Form.Label>Skills</Form.Label>
               <Form.Control
                 type="text"
-                value={this.state.skills}
+                value={this.state.currentskill}
                 placeholder="Skills  "
                 onChange={ this.setSkills }
               />
+<Form.Label>Resume link:</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.state.currentskill}
+                placeholder="Resume link:  "
+                onChange={ this.setResume }
+              />
+
+<Form.Label>Education</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.state.currentskill}
+                placeholder="Highest education achieved "
+                onChange={ this.setEducation }
+              />
+
                     <Form.Label>Salary</Form.Label>
               <Form.Control
                 type="text"
