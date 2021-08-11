@@ -26,6 +26,7 @@ import SeekerUserProfile from './Components/Seeker/SeekerUserProfile'
 import Admin from './Components/Admin/adminHeader'
 import JobType from './Components/Admin/jobType'
 import Recommendation from './Components/Recommendation'
+import SearchJobs from './Components/SearchJobs';
 
 import './App.css';
 
@@ -73,6 +74,7 @@ export default class App extends Component {
             <Route path = "/admin"  component = { Admin } />
             <Route path =  "/admin/jobtype/" component = { JobType } />
             <Route path = "/seeker/recommendation/" component = { Recommendation }/>
+            <Route path = "/searchjobs" component ={ SearchJobs }/>
             {/* render = { (props) =><ShowSeeker {...props} /> } */}
             
             

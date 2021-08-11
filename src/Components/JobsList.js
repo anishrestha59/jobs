@@ -11,7 +11,7 @@ import NewJobsList from './Designedmodeljoblist/NewJobsList';
 import _ from "lodash";
 import Header from './Header';
 import { checkDeadline, getDateFiltered } from "./Common/FilterJobs";
-
+import {Form} from 'react-bootstrap';
 
 
 
@@ -70,7 +70,8 @@ export default class JobsList extends Component {
       jobs: [],
       userData: {},
       selectedJob: "",
-      sortColumn: { path: "title", order: "asc" },
+      sortColumn: { path: "jobname", order: "asc" },
+      search:"",
       
     };
   }
@@ -156,6 +157,13 @@ export default class JobsList extends Component {
     localStorage.setItem("showNewJobs", JSON.stringify(e.target.checked));
   }
 
+  handleSearch = (e) =>{
+    this.setState({search: e.target.value})
+  }
+
+  handleSearchButton = ()=>{
+      this.props.history.push(`/searchjobs?jobname=${this.state.search}`)
+  }
   render() {
     const {
       currentPage,
@@ -223,10 +231,15 @@ export default class JobsList extends Component {
           <div className="col-4">
           <div className="input-group">
   <div className="form-outline">
-    <input placeholder="Search" type="search" id="form1" className="form-control" />
-    
+    <Form.Control
+                  type="text"
+                  value={this.state.search}
+                  required
+                  placeholder="Search"
+                  onChange={this.handleSearch}
+                />
   </div>
-  <button type="button" className="btn btn-primary">
+  <button onClick={this.handleSearchButton} type="button" className="btn btn-primary">
     <i ><FontAwesomeIcon icon={faSearch} /></i>
   </button>
 </div>

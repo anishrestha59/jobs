@@ -15,7 +15,7 @@ class jobtype extends Component {
      componentDidMount() {
          axios.get('http://localhost:5000/jobtypes')
             .then((response)=>{
-                console.log(response.data)
+                
                 this.setState({jobtypes:response.data})
             }).catch(err=> console.log(err));
     }

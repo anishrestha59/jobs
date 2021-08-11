@@ -19,7 +19,7 @@ export function getDateFiltered(jobs){
 export function checkDeadline(paramDate){
     const deadlinestring = paramDate.substring(0,10);
     const deadline = Date.parse(deadlinestring);
-console.log(date-deadline)
+
     if(deadline-date>107100000){
      return false;
     }
