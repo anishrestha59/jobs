@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
+import { getDateFiltered, checkDeadline} from "../Common/FilterJobs";
 
 class newJobs extends Component {
   constructor() {
     super();
     this.state = {
       jobs: [],
+      date: new Date()
     };
   }
 
@@ -22,12 +25,12 @@ class newJobs extends Component {
 
   render() {
     const { jobs } = this.state;
-
+    const filteredJobs = getDateFiltered(jobs);
     return (
       <React.Fragment>
         <div>
           <div className="row">
-            {jobs.map((job) => (
+            {filteredJobs.map((job) => (
               <React.Fragment>
                 <div className=" card shadow col-4">
                   <img
@@ -35,29 +38,31 @@ class newJobs extends Component {
                     style={{ borderRadius: "25px", height:"200px" }}
                     src={`/${job["companyprofile"]}`}
                   ></img>
-                  <div class="card-body">
+                  <div className="card-body">
                     
                   </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item"style={{
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item"style={{
                         textOverflow: "ellipsis",
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         overflowWrap: "none",
                       }}
                     >Job Name: {job.jobname}</li>
-                    <li class="list-group-item" style={{
+                    <li className="list-group-item" style={{
                         textOverflow: "ellipsis",
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         overflowWrap: "none",
                       }}>Salary: {job.salary}</li>
-                      <li class="list-group-item" style={{
+                      <li className={(checkDeadline(job.date))? "list-group-item text-danger" : "list-group-item" } 
+                      
+                      style={{
                         textOverflow: "ellipsis",
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         overflowWrap: "none",
-                      }}>Salary: {job.date .substring(0, 10)}</li>
+                      }}>Deadline: {job.date .substring(0, 10)}</li>
                   </ul>
                   
                     
@@ -81,9 +86,8 @@ class newJobs extends Component {
                       {job.description}
                     </p> */}
                  
-                  <a href="#" class="btn btn-dark">
-                    APPLY
-                  </a>
+                 <Link className="btn btn-dark" to={`/job/${job['_id']}`}>Apply</Link>
+
                 </div>
               </React.Fragment>
             ))}

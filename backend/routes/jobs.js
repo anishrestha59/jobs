@@ -96,7 +96,15 @@ router.route('/update/:id').post((req, res) => {
 
 
 
-
+router.route('/jobtype/:jobtype').get((req, res) => {
+    Job.find({jobtype: req.params.jobtype},(err,jobs) => {
+        if(err){
+            throw new err;
+        }else{
+        res.json(jobs);
+        }
+    });
+});
 
 
 module.exports = router;

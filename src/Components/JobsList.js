@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import { NavLink, Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee, faPlus,faSearch, fas } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "./pagination/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./Common/listGroup";
 import NewJobsList from './Designedmodeljoblist/NewJobsList';
 import _ from "lodash";
 import Header from './Header';
-
+import { checkDeadline, getDateFiltered } from "./Common/FilterJobs";
 
 
 
@@ -30,7 +30,7 @@ const Jobs = (props) => {
       </td>
       <td>{props.jobs.jobname}</td>
       <td>{props.jobs.jobtype}</td>
-      <td>{props.jobs.date.substring(0, 10)}</td>
+      <td className={checkDeadline(props.jobs.date)?"text-danger":""}>{props.jobs.date.substring(0, 10)}</td>
       <td>
         {!user && (
           <>
@@ -63,7 +63,7 @@ export default class JobsList extends Component {
 
     this.state = {
       currentPage: 1,
-      pageSize: 2,
+      pageSize: 7,
       selectedJobType: "All Jobs",
       showNewJobs: true,
       jobTypes: [],
@@ -168,8 +168,9 @@ export default class JobsList extends Component {
       selectedJobType && !(selectedJobType === "All Jobs")
         ? allJobs.filter((job) => job["jobtype"] === selectedJobType)
         : allJobs;
-
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+      
+    const filteredDate = getDateFiltered(filtered);
+    const sorted = _.orderBy(filteredDate, [sortColumn.path], [sortColumn.order]);
     const jobs = paginate(sorted, currentPage, pageSize);
     
     
@@ -217,7 +218,20 @@ export default class JobsList extends Component {
 
         </div>
         <div className="col">
-          <h4> Jobs:</h4>
+          <div className="row">
+          <h4 className="col-8"> Jobs:</h4>
+          <div className="col-4">
+          <div className="input-group">
+  <div className="form-outline">
+    <input placeholder="Search" type="search" id="form1" className="form-control" />
+    
+  </div>
+  <button type="button" className="btn btn-primary">
+    <i ><FontAwesomeIcon icon={faSearch} /></i>
+  </button>
+</div>
+</div>
+          </div>
           <table className="table">
             <thead className="thead-light">
               <tr>
