@@ -6,14 +6,15 @@ import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee, faPlus, faSearch, fas } from "@fortawesome/free-solid-svg-icons";
+import { getDateFiltered } from '../Components/Common/FilterJobs';
 
 
 
 export default function SearchJobs() {
     const query = useQuery();
-    const jobname = query.get('jobname') || "";
+    const jname = query.get('jobname') || "";
 
-
+    const [firstjobname, setFirstJobname] = useState(jname);
     const [jobs, setJobs] = useState([]);
     const [searchByJobname, setSearchByJobname] = useState('');
     const [filtered, setFiltered] = useState([]);
@@ -29,8 +30,16 @@ export default function SearchJobs() {
         await axios
             .get("http://localhost:5000/jobs/")
             .then((response) => {
-                setJobs(response.data);
-                setFiltered(response.data);
+               const newJobs =  getDateFiltered(response.data);
+                setJobs(newJobs);
+                setFiltered(newJobs.filter((job) => {
+                    const jobname = job.jobname.toLowerCase();
+                    const lfirstjobname = firstjobname.toLowerCase();
+        
+                    if (jobname.includes(lfirstjobname)) {
+                        return job;
+                    }
+                }))
             })
             .catch((err) => {
                 console.log(err);
@@ -43,7 +52,7 @@ export default function SearchJobs() {
 
             }).catch(err => console.log(err));
 
-
+  
     }, []);
 
 
@@ -174,7 +183,7 @@ export default function SearchJobs() {
                              onClick={(e) => {
                     
                                 setSelectedJobType(e.target.value)
-                  }} class="form-select" aria-label="Default select example">
+                  }} className="form-select" aria-label="Default select example">
                                 <option value="Others" selected>Others</option>
                                 {
                                     jobtypes.map((jobtype) => {

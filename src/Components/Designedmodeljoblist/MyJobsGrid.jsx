@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import { checkDeadline } from '../Common/FilterJobs';
 
 class MyJobsGrid extends Component {    
       constructor() {
@@ -42,7 +43,8 @@ class MyJobsGrid extends Component {
                             whiteSpace: "nowrap",
                             overflowWrap: "none",
                           }}>Salary: {job.salary}</li>
-                          <li className="list-group-item" style={{
+                          <li className={checkDeadline(job.date)?"list-group-item text-danger":"list-group-item "} 
+                          style={{
                             textOverflow: "ellipsis",
                             overflow: "hidden",
                             whiteSpace: "nowrap",
