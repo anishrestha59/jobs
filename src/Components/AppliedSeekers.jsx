@@ -12,13 +12,14 @@ const Seekers= (props) =>{
                 alt={props.seekers['profile']}
             /> </td>
             <td>{props.seekers['seekername']}</td>
-            <td>{props.seekers['skills']}</td>
+            <td>{props.seekers['bestat']}</td>
             <td>{props.seekers['age']}</td>
             <td>
                 <button name={appliedid} id="showseeker" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} />View Seeker</button>
 
                 <button name={appliedid} id="accept" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} /></button>
-                <button name={appliedid} id="reject" style={{ backgroundColor: "Red" }} onClick={props.handleButton}><FontAwesomeIcon icon={faTimes} /></button>
+                <button name={appliedid} id="rejecte"  onClick={props.handleButton} type="button" class="btn btn-danger">
+                    <FontAwesomeIcon icon={faTimes}/></button>
 
             </td>
         </tr>

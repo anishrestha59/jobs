@@ -106,7 +106,7 @@ class ShowSeeker extends Component {
                     GO Back
                 </Link>
                 </div>
-                <div className="col-6" >
+                <div className="col-6 text-info" >
                     Response: {this.state.appliedinfo['message']}
                 </div>
                 </Row>

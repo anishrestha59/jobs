@@ -22,7 +22,9 @@ export default function Header( {user} ) {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink className="nav-link" to="/">Home</NavLink>
-                        <NavLink className="nav-link" to="/users/add">Recommended</NavLink>
+                        {user && user['seekername'] &&
+                        <NavLink className="nav-link" to="/seeker/recommendation">Recommended</NavLink>
+                        }
                 </Nav>
                 <Nav>
                         {!user && <React.Fragment>
