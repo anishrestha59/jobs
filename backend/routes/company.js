@@ -3,6 +3,13 @@ const { registerCompany, authCompany, updateCompany } = require('../Controllers/
 let Company = require('../models/company.model');
 var multer  = require('multer')
 
+router.route('/getall').get((req, res) => {
+  Company.find()
+      .then(companies => res.json(companies))
+      .catch(err => res.status(400).json('Error' + err));
+});
+
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, '/jobportalreact/jobs/public')
@@ -38,6 +45,12 @@ router.patch('/profilepic/:id', upload.single('myFile'), async (req,res) => {
    console.log("tried to patch profile"+error);
   }
  
+});
+
+router.route('/delete/:id').delete((req, res) => {
+  Company.findByIdAndDelete(req.params.id)
+      .then(() => res.json('Company deleted'))
+      .catch(err => res.status(400).json('Error :' + err));
 });
 
 router.route('/update/:id').post((req, res) => {

@@ -3,6 +3,12 @@ let Seeker = require("../models/seeker.model")
 const { registerSeeker, authSeeker } = require('../Controllers/seekerControllers');
 var multer  = require('multer')
 
+
+router.route('/getall').get((req, res) => {
+  Seeker.find()
+      .then(seekers => res.json(seekers))
+      .catch(err => res.status(400).json('Error' + err));
+});
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, '/jobportalreact/jobs/public')
@@ -38,6 +44,11 @@ router.patch('/profilepic/:id', upload.single('myFile'), async (req,res) => {
   }
  
 });
+router.route('/delete/:id').delete((req, res) => {
+  Seeker.findByIdAndDelete(req.params.id)
+      .then(() => res.json('Seeker deleted'))
+      .catch(err => res.status(400).json('Error :' + err));
+});
 
 router.route('/update/:id').post((req, res) => {
   Seeker.findById(req.params.id)
@@ -70,5 +81,6 @@ router.route('/:id').get((req, res) => {
         .then(seekerinfo => res.json(seekerinfo))
         .catch(err => res.status(400).json('Error' + err));
 });
+
 
 module.exports = router;

@@ -22,7 +22,11 @@ export default function Header(){
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink className="nav-link" to="/admin/jobtype">Jobtype</NavLink>
-                        <NavLink className="nav-link" to="/admin">something</NavLink>
+                        <NavLink className="nav-link" to="/admin/manageseekers">ManageSeekers</NavLink>
+                        <NavLink className="nav-link" to="/admin/managecompany">ManageCompany</NavLink>
+                        <NavLink className="nav-link" to="/admin/managejobs">ManageJobs</NavLink>
+                        
+
                 </Nav>
                 <Nav>
                    

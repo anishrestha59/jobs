@@ -27,6 +27,13 @@ import Admin from './Components/Admin/adminHeader'
 import JobType from './Components/Admin/jobType'
 import Recommendation from './Components/Recommendation'
 import SearchJobs from './Components/SearchJobs';
+import AdminShowSeeker from './Components/Admin/AdminShowSeeker';
+import ShowCompany  from './Components/ShowCompany';
+import ManageSeekers from './Components/Admin/ManageSeekers';
+import ManageCompany from './Components/Admin/ManageCompany';
+import ManageJobs  from './Components/Admin/ManageJobs';
+import AdminShowJobs from './Components/Admin/AdminShowJob';
+ 
 
 import './App.css';
 
@@ -71,10 +78,17 @@ export default class App extends Component {
             <Route path = "/jobs/appliedseekers/:id" component = { AppliedSeekers }/>
             <Route path = "/showseeker/:id" component = { ShowSeeker }/>
             <Route path = "/seeker/userprofile/" component = { SeekerUserProfile } />
-            <Route path = "/admin"  component = { Admin } />
-            <Route path =  "/admin/jobtype/" component = { JobType } />
             <Route path = "/seeker/recommendation/" component = { Recommendation }/>
             <Route path = "/searchjobs" component ={ SearchJobs }/>
+            <Route path = "/admin"  component = { Admin } />
+            <Route path =  "/admin/jobtype/" exact component = { JobType } />
+            <Route path = "/admin/adminshowseeker/:id" exact component={AdminShowSeeker}/>
+            <Route path = "/showcompany/:id" exact component={ ShowCompany }/>
+            <Route path = "/admin/adminshowjobs/:id" exact component={ AdminShowJobs }/>         
+            <Route path = "/admin/manageseekers" exact component={ ManageSeekers }/>
+            <Route path = "/admin/managecompany" exact component={ ManageCompany }/>
+            <Route path = "/admin/managejobs" exact component={ ManageJobs }/>
+
             {/* render = { (props) =><ShowSeeker {...props} /> } */}
             
             
