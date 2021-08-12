@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
 import { checkDeadline } from '../Common/FilterJobs';
+import { getCurrentUser } from './../Services/authService';
 
 class MyJobsGrid extends Component {    
       constructor() {
         super();
         this.state = {
           jobs: [],
+          user:{},
         };
       }
+      componentDidMount() {
+        const user = getCurrentUser();
+        this.setState({user})
+      }
+      
 
       render() {
        const { jobs } = this.props;
+       const {user} = this.state;
     
         return (
           <React.Fragment>
@@ -20,7 +28,7 @@ class MyJobsGrid extends Component {
               <div className="row">
                 {jobs.map((job) => (
                   <React.Fragment>
-                    <div className=" card shadow col-4">
+                    <div className=" card shadow col-4 mt-4">
                       <img
                         className="card-img-top "
                         style={{ borderRadius: "25px", height:"200px" }}
@@ -72,9 +80,9 @@ class MyJobsGrid extends Component {
                         >
                           {job.description}
                         </p> */}
-                        
+                        {user && user['seekername'] &&
                      <Link className="btn btn-dark" to={`/job/${job['_id']}`}>Apply</Link>
-                   
+                      }
                     </div>
                   </React.Fragment>
                 ))}

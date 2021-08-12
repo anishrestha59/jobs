@@ -309,7 +309,7 @@ export default class CreateJobs extends Component {
                   <Form.Label>No. of vacancy:</Form.Label>
                   <div className='col-3'>
                     <Form.Control type="number"
-
+required
                       placeholder="Enter number of vacancy"
                       value={this.state.vacancynumber}
                       onChange={this.changeVacancyNumber} />

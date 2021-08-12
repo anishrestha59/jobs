@@ -85,13 +85,15 @@ const SignupScreen = () => {
           .post("http://localhost:5000/company/", formdata, config)
           .then((response) => {
             localStorage.setItem("UserData", JSON.stringify(response.data));
-            window.location = "/";
+            window.location = "/company/myjobs";
           })
           .catch((err) => {
             toast.error("phone already exist");
             setErrorBack("phone already exist");
             console.log(err);
           });
+          localStorage.setItem("UserData", JSON.stringify(data));
+          window.location = "/company/myjobs";
 
         // localStorage.setItem("UserData", JSON.stringify(data));
         // window.location = '/'

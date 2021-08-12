@@ -119,11 +119,16 @@ class ShowSeeker extends Component {
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faUser} /> Name: {this.state.seekerinfo['seekername']} </Card.Subtitle>
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faVenusMars} /> gender : {this.state.seekerinfo['gender']} </Card.Subtitle>
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faUsers} /> age : {this.state.seekerinfo['age']} </Card.Subtitle>
-                                <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faGraduationCap} /> skill : {this.state.seekerinfo['skills']} </Card.Subtitle>
+                                
+                                <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faGraduationCap} /> Skill : {this.state.seekerinfo['currentskill']} </Card.Subtitle>
+                                <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faGraduationCap} /> Best at : {this.state.seekerinfo['bestat']} </Card.Subtitle>
+                                
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faUniversity} /> experience: {this.state.seekerinfo['experience']} </Card.Subtitle>
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faMapMarked} /> address: {this.state.seekerinfo['seekeraddress']} </Card.Subtitle>
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faMoneyBillAlt} /> current salary : {this.state.seekerinfo['salary']} </Card.Subtitle>
                                 <Card.Subtitle className="mb-2 my-3 text-muted"> <FontAwesomeIcon icon={faPhone} /> contact : {this.state.seekerinfo['contact']} </Card.Subtitle>
+                                <Card.Subtitle className="mb-2 my-3 text-muted">  Resume : <Link to={this.state.seekerinfo['resume']}>{this.state.seekerinfo['resume']}</Link>  </Card.Subtitle>
+                                
 
                             </Card.Body>
 

@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {Row,Col,Image,ListGroup,Card,Button, Container} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import ReactHtmlParser from 'react-html-parser';
 
 
 
@@ -160,7 +161,7 @@ countViews= async (jobid) => {
                 Some quick example text to build on the card title and make up the bulk of
                 the card's content.
               </Card.Text>
-              <Link className='btn btn-dark my-3' to='/'>
+              <Link className='btn btn-dark my-3' to={`/showcompany/${this.state.companyDetails['_id']}`}>
                 COMPANY PROFILE
               </Link>
               
@@ -207,7 +208,7 @@ countViews= async (jobid) => {
                 <ListGroup.Item>
                   <Row >
                     <Col >
-                    <strong>jobshift : {this.state.jobDetail['jobshift']}</strong>
+                    <strong>Jobshift : {this.state.jobDetail['jobshift']}</strong>
                     </Col>
                     
                   </Row>
@@ -231,12 +232,35 @@ countViews= async (jobid) => {
                 <ListGroup.Item>
                   <Row >
                     <Col >
-                    <strong>Experience : {this.state.jobDetail['experience']}</strong>
+                    <strong>Experience : {this.state.jobDetail['experience']} year</strong>
                     </Col>
                     
                   </Row>
                 </ListGroup.Item>
-                
+                <ListGroup.Item>
+                  <Row >
+                    <Col >
+                    <strong>Gender needed : {this.state.jobDetail['gender']}</strong>
+                    </Col>
+                    
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row >
+                    <Col >
+                    <strong>Vacancy no. : {this.state.jobDetail['vacancynumber']}</strong>
+                    </Col>
+                    
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row >
+                    <Col >
+                    <strong>Description : {ReactHtmlParser(this.state.jobDetail['description'])}</strong>
+                    </Col>
+                    
+                  </Row>
+                </ListGroup.Item>
 
               </ListGroup>  
             </Card>

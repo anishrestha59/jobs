@@ -15,9 +15,8 @@ const Seekers= (props) =>{
             <td>{props.seekers['bestat']}</td>
             <td>{props.seekers['age']}</td>
             <td>
-                <button name={appliedid} id="showseeker" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} />View Seeker</button>
+                <button name={appliedid} class="btn btn-info" id="showseeker" onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} />View Seeker</button>
 
-                <button name={appliedid} id="accept" style={{ backgroundColor: "Green", margin: "5px" }} onClick={props.handleButton}><FontAwesomeIcon icon={faCheck} /></button>
                 <button name={appliedid} id="rejecte"  onClick={props.handleButton} type="button" class="btn btn-danger">
                     <FontAwesomeIcon icon={faTimes}/></button>
 

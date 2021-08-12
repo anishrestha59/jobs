@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import "./login.css";
 import Loading from "../Components/Loading";
 import ErrorMessage from "../Components/ErrorMessage";
+import {toast} from 'react-toastify';
 
 const LoginScreen = () => {
   const [contact, setContact] = useState("");
@@ -35,8 +36,9 @@ const LoginScreen = () => {
       setLoading(false);
 
       localStorage.setItem("UserData", JSON.stringify(data));
-      window.location = "/";
+      window.location = "/company/myjobs";
     } catch (error) {
+      toast.error("Invalid phone or password")
       setError(error.response.data.message);
       setLoading(false);
     }

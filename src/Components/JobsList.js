@@ -32,16 +32,7 @@ const Jobs = (props) => {
       <td>{props.jobs.jobtype}</td>
       <td className={checkDeadline(props.jobs.date)?"text-danger":""}>{props.jobs.date.substring(0, 10)}</td>
       <td>
-        {!user && (
-          <>
-            <button type="button" className="btn btn-primary">
-              {" "}
-              Apply <FontAwesomeIcon icon={faCoffee} />
-            </button>
-
-            {/* <a href="#" onClick={() => { props.deleteJobs(props.jobs._id) }}> ApplyTo login </a> */}
-          </>
-        )}
+     
         {user && user["seekername"] && (
           <React.Fragment>
             <NavLink className="NavLink" to={`job/${props.jobs._id}`}>
@@ -227,7 +218,7 @@ export default class JobsList extends Component {
         </div>
         <div className="col">
           <div className="row">
-          <h4 className="col-8"> Jobs:</h4>
+          <h4 className="col-8"> Jobs : </h4>
           <div className="col-4">
           <div className="input-group">
   <div className="form-outline">
@@ -249,11 +240,11 @@ export default class JobsList extends Component {
             <thead className="thead-light">
               <tr>
                 <th>Company:</th>
-                <th onClick={() => this.handleSort("jobname")}>Jobname:</th>
-                <th>Description:</th>
-                <th onClick={() => this.handleSort("deadline")}>Deadline:</th>
+                <th onClick={() => this.handleSort("jobname")} style={{"cursor":"pointer"}}>Jobname:</th>
+                <th>Jobtype:</th>
+                <th onClick={() => this.handleSort("deadline")} style={{"cursor":"pointer"}}>Deadline:</th>
                 {this.state.userData && this.state.userData['seekername'] && <th>Actions:</th>}
-                {!this.state.userData && <th>Actions:</th>}
+                {!this.state.userData && <th></th>}
               
               </tr>
             </thead>

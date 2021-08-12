@@ -1,12 +1,16 @@
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom'
 
 const ListGroup = (props) => {
     const { items, onItemSelect, selectedItem } = props;
     const length = items.length;
+    const sliceditems=items.slice(0,10)
+    
     return (
         <div>
-            <ul className="list-group">
-                {items.map((item) => {
+
+            <ul className="list-group" style={{"cursor": "pointer"}}>
+                {sliceditems.map((item) => {
                     return (
                         <React.Fragment>
                             <li onClick={() => onItemSelect(item['jobtype'])}
@@ -24,7 +28,10 @@ const ListGroup = (props) => {
 
                 {length > 12 &&
                     <React.Fragment>
-                        <li className="list-group-item" >See all</li>
+                        <li className="list-group-item" >
+                            <Link to="/searchjobs?jobname=" >See all</Link>
+
+                        </li>
                     </React.Fragment>}
 
 

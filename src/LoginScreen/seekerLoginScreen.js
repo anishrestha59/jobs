@@ -6,6 +6,7 @@ import "./login.css";
 import Loading from "../Components/Loading";
 import ErrorMessage from "../Components/ErrorMessage";
 import PropTypes from "prop-types";
+import {toast} from "react-toastify";
 
 const LoginScreen = ({ jobid }) => {
   const [contact, setContact] = useState("");
@@ -39,6 +40,7 @@ const LoginScreen = ({ jobid }) => {
       localStorage.setItem("UserData", JSON.stringify(data));
       window.location = "/";
     } catch (error) {
+      toast.error('Invalid phone or password!');
       setError(error.response.data.message);
       setLoading(false);
     }

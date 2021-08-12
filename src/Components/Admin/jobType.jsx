@@ -7,7 +7,7 @@ class jobtype extends Component {
         super();
 
         this.state = {
-            jobtypes: [],
+            jobtypes: ['Others'],
             newjobtype: ""
         }
     }

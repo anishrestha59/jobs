@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { getDateFiltered, checkDeadline} from "../Common/FilterJobs";
+import { getCurrentUser } from './../Services/authService';
+
 
 class newJobs extends Component {
   constructor() {
     super();
     this.state = {
       jobs: [],
+      user:{},
       date: new Date()
     };
   }
@@ -21,18 +24,20 @@ class newJobs extends Component {
       .catch((err) => {
         console.log(err);
       });
+      const user = getCurrentUser();
+        this.setState({user})
   }
 
   render() {
-    const { jobs } = this.state;
+    const { jobs,user } = this.state;
     const filteredJobs = getDateFiltered(jobs);
     return (
       <React.Fragment>
-        <div>
+        <div >
           <div className="row">
             {filteredJobs.map((job) => (
               <React.Fragment>
-                <div className=" card shadow col-4">
+                <div className=" card shadow col-4 mt-4">
                   <img
                     className="card-img-top "
                     style={{ borderRadius: "25px", height:"200px" }}
@@ -85,9 +90,9 @@ class newJobs extends Component {
                     >
                       {job.description}
                     </p> */}
-                 
+                 {user && user['seekername']&&
                  <Link className="btn btn-dark" to={`/job/${job['_id']}`}>Apply</Link>
-
+                  }
                 </div>
               </React.Fragment>
             ))}
